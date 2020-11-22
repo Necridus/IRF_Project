@@ -19,6 +19,7 @@ namespace IRF_Project
         {
             InitializeComponent();
             LoadData();
+            dataGridView.DataSource = people;
         }
 
         private void LoadData()
@@ -28,7 +29,16 @@ namespace IRF_Project
                 sr.ReadLine();
                 while (!sr.EndOfStream)
                 {
+                    bool hasJob = false;
                     string[] line = sr.ReadLine().Split(';');
+                    if (line[5] == "van")
+                    {
+                        hasJob = true;
+                    }
+                    else
+                    {
+                        hasJob = false;
+                    }
                     people.Add(new Person()
                     {
                         LastName = line[0],
@@ -36,10 +46,16 @@ namespace IRF_Project
                         Age = int.Parse(line[2]),
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[3]),
                         Education = line[4],
-                        HasJob = bool.Parse(line[5])
+                        HasJob = hasJob
                     });
                 }
             }
+        }
+
+        private void hintBT_Click(object sender, EventArgs e)
+        {
+            var newline = Environment.NewLine;
+            MessageBox.Show(String.Format("súgó{0}üzenet", newline));
         }
     }
 }
