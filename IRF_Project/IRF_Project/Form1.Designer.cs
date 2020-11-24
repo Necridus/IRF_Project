@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Vezetéknév = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keresztnév = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,8 +55,8 @@
             this.resetBT = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.ageStartTB = new System.Windows.Forms.TextBox();
+            this.ageEndTB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -107,8 +107,8 @@
             // 
             this.Kor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Kor.DataPropertyName = "Age";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Kor.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Kor.DefaultCellStyle = dataGridViewCellStyle2;
             this.Kor.HeaderText = "Kor";
             this.Kor.Name = "Kor";
             this.Kor.ReadOnly = true;
@@ -145,16 +145,16 @@
             // 
             // chartbase
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartbase.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartbase.Legends.Add(legend3);
+            chartArea2.Name = "ChartArea1";
+            this.chartbase.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartbase.Legends.Add(legend2);
             this.chartbase.Location = new System.Drawing.Point(537, 49);
             this.chartbase.Name = "chartbase";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartbase.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartbase.Series.Add(series2);
             this.chartbase.Size = new System.Drawing.Size(507, 491);
             this.chartbase.TabIndex = 1;
             this.chartbase.Text = "chart1";
@@ -202,6 +202,7 @@
             this.dataCB.Name = "dataCB";
             this.dataCB.Size = new System.Drawing.Size(263, 21);
             this.dataCB.TabIndex = 30;
+            this.dataCB.SelectedValueChanged += new System.EventHandler(this.dataCB_SelectedValueChanged);
             // 
             // label3
             // 
@@ -288,19 +289,21 @@
             this.label6.TabIndex = 39;
             this.label6.Text = "(amennyiben nem szeretne felső határt, hagyja üresen!)";
             // 
-            // textBox1
+            // ageStartTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(253, 118);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(25, 20);
-            this.textBox1.TabIndex = 40;
+            this.ageStartTB.Location = new System.Drawing.Point(253, 118);
+            this.ageStartTB.Name = "ageStartTB";
+            this.ageStartTB.Size = new System.Drawing.Size(25, 20);
+            this.ageStartTB.TabIndex = 40;
+            this.ageStartTB.Leave += new System.EventHandler(this.ageStartTB_Leave);
             // 
-            // textBox2
+            // ageEndTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(402, 118);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(25, 20);
-            this.textBox2.TabIndex = 41;
+            this.ageEndTB.Location = new System.Drawing.Point(402, 118);
+            this.ageEndTB.Name = "ageEndTB";
+            this.ageEndTB.Size = new System.Drawing.Size(25, 20);
+            this.ageEndTB.TabIndex = 41;
+            this.ageEndTB.Leave += new System.EventHandler(this.ageEndTB_Leave);
             // 
             // label7
             // 
@@ -325,8 +328,8 @@
             this.ClientSize = new System.Drawing.Size(1056, 552);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ageEndTB);
+            this.Controls.Add(this.ageStartTB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.resetBT);
@@ -376,8 +379,8 @@
         private System.Windows.Forms.Button resetBT;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox ageStartTB;
+        private System.Windows.Forms.TextBox ageEndTB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
     }

@@ -18,6 +18,14 @@ namespace IRF_Project
         List<Person> people = new List<Person>();
         List<string> datas = new List<string>();
         #endregion
+
+        #region Properties
+        string _educationComboBoxOption = "";
+        string _jobComboBoxOption = "";
+        string _choosenData = "";
+        int _ageStart;
+        int _ageEnd;
+        #endregion
         public Form1()
         {
             InitializeComponent();
@@ -49,8 +57,10 @@ namespace IRF_Project
             using (StreamReader sr = new StreamReader("people.csv", Encoding.Default))
             {
                 string[] headline = sr.ReadLine().Split(';');
-                datas.Add(headline[4]);
-                datas.Add(headline[5]);
+                _educationComboBoxOption = headline[4];
+                _jobComboBoxOption = headline[5];
+                datas.Add(_educationComboBoxOption);
+                datas.Add(_jobComboBoxOption);
                 while (!sr.EndOfStream)
                 {
                     bool hasJob = false;
@@ -102,6 +112,70 @@ namespace IRF_Project
             LoadData();
             RefreshDataGridView();
             //CreateChart();
+        }
+
+        private void dataCB_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (dataCB.SelectedValue.ToString() == "")
+            {
+                return;
+            }
+            else if (dataCB.SelectedValue.ToString() == _educationComboBoxOption)
+            {
+                _choosenData = "Education";
+            }
+            else if (dataCB.SelectedValue.ToString() == _jobComboBoxOption)
+            {
+                _choosenData = "hasJob";
+            }
+        }
+
+        private void ageStartTB_Leave(object sender, EventArgs e)
+        {
+            if (ageStartTB.Text == "")
+            {
+                var lowestAge = (from x in people
+                                  orderby x.Age ascending
+                                select x.Age).First();
+                _ageStart = lowestAge;
+                ageStartTB.Text = _ageStart.ToString();
+            }
+            else
+            {
+                try
+                {
+                    _ageStart = int.Parse(ageStartTB.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Csak egy számot írjon be!");
+                    ageStartTB.Focus();
+                }
+            }
+        }
+
+        private void ageEndTB_Leave(object sender, EventArgs e)
+        {
+            if (ageEndTB.Text == "")
+            {
+                var highestAge = (from x in people
+                                 orderby x.Age descending
+                                 select x.Age).First();
+                _ageEnd = highestAge;
+                ageEndTB.Text = _ageEnd.ToString();
+            }
+            else
+            {
+                try
+                {
+                    _ageEnd = int.Parse(ageEndTB.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Csak egy számot írjon be!");
+                    ageEndTB.Focus();
+                }
+            }
         }
     }
 }
