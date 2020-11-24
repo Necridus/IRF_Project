@@ -14,21 +14,28 @@ namespace IRF_Project
 {
     public partial class Form1 : Form
     {
+        #region Lists
         List<Person> people = new List<Person>();
+        List<string> datas = new List<string>();
+        #endregion
         public Form1()
         {
             InitializeComponent();
             LoadData();
             RefreshDataGridView();
-            
+            //CreateChart();
         }
-
+        //public void CreateChart()
+        //{
+        //    chartbase.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+        //}
         private void RefreshDataGridView()
         {
-
+            label4.Text = people.Count.ToString();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
             dataGridView.DataSource = people;
+            //chartBindingSource.DataSource = people;
             //dataGridView.Columns[0].HeaderText = "Vezetéknév";
             //dataGridView.Columns[1].HeaderText = "Keresztnév";
             //dataGridView.Columns[2].HeaderText = "Kor";
@@ -41,7 +48,9 @@ namespace IRF_Project
         {
             using (StreamReader sr = new StreamReader("people.csv", Encoding.Default))
             {
-                sr.ReadLine();
+                string[] headline = sr.ReadLine().Split(';');
+                datas.Add(headline[4]);
+                datas.Add(headline[5]);
                 while (!sr.EndOfStream)
                 {
                     bool hasJob = false;
@@ -65,6 +74,8 @@ namespace IRF_Project
                     });
                 }
             }
+            dataCB.DataSource = datas;
+            label4.Text = people.Count.ToString();
         }
 
         private void hintBT_Click(object sender, EventArgs e)
@@ -83,6 +94,14 @@ namespace IRF_Project
                 people.Remove(person);
             }
             RefreshDataGridView();
+        }
+
+        private void resetBT_Click(object sender, EventArgs e)
+        {
+            people.Clear();
+            LoadData();
+            RefreshDataGridView();
+            //CreateChart();
         }
     }
 }
