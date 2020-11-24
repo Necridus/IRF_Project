@@ -15,17 +15,23 @@ namespace IRF_Project
     public partial class Form1 : Form
     {
         #region Lists
+
         List<Person> people = new List<Person>();
         List<string> datas = new List<string>();
+
         #endregion
 
         #region Properties
+
         string _educationComboBoxOption = "";
         string _jobComboBoxOption = "";
         string _choosenData = "";
         int _ageStart;
         int _ageEnd;
+        Gender _choosenGender=Gender.All;
+
         #endregion
+
         public Form1()
         {
             InitializeComponent();
@@ -116,11 +122,7 @@ namespace IRF_Project
 
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (dataCB.SelectedValue.ToString() == "")
-            {
-                return;
-            }
-            else if (dataCB.SelectedValue.ToString() == _educationComboBoxOption)
+            if (dataCB.SelectedValue.ToString() == _educationComboBoxOption)
             {
                 _choosenData = "Education";
             }
@@ -177,6 +179,31 @@ namespace IRF_Project
                 }
             }
         }
+
+        private void femaleRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (femaleRB.Checked)
+            {
+                _choosenGender = Gender.Female;
+            }
+        }
+
+        private void maleRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (maleRB.Checked)
+            {
+                _choosenGender = Gender.Male;
+            }
+        }
+
+        private void allRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allRB.Checked)
+            {
+                _choosenGender = Gender.All;
+            }
+        }
+
     }
 }
 

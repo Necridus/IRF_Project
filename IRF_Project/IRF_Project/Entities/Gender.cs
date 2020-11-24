@@ -8,7 +8,8 @@ namespace IRF_Project.Entities
 {
     public enum Gender
     {
-        Férfi = 1,
-        Nő = 2
+        Male = 1,
+        Female = 2,
+        All = 3
     }
 }

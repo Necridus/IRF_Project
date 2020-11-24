@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Vezetéknév = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keresztnév = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,8 +107,8 @@
             // 
             this.Kor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Kor.DataPropertyName = "Age";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Kor.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Kor.DefaultCellStyle = dataGridViewCellStyle5;
             this.Kor.HeaderText = "Kor";
             this.Kor.Name = "Kor";
             this.Kor.ReadOnly = true;
@@ -145,16 +145,16 @@
             // 
             // chartbase
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartbase.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartbase.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chartbase.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chartbase.Legends.Add(legend5);
             this.chartbase.Location = new System.Drawing.Point(537, 49);
             this.chartbase.Name = "chartbase";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartbase.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chartbase.Series.Add(series5);
             this.chartbase.Size = new System.Drawing.Size(507, 491);
             this.chartbase.TabIndex = 1;
             this.chartbase.Text = "chart1";
@@ -197,6 +197,7 @@
             // 
             // dataCB
             // 
+            this.dataCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dataCB.FormattingEnabled = true;
             this.dataCB.Location = new System.Drawing.Point(12, 36);
             this.dataCB.Name = "dataCB";
@@ -231,6 +232,7 @@
             this.allRB.TabStop = true;
             this.allRB.Text = "Mindenki";
             this.allRB.UseVisualStyleBackColor = true;
+            this.allRB.CheckedChanged += new System.EventHandler(this.allRB_CheckedChanged);
             // 
             // femaleRB
             // 
@@ -242,6 +244,7 @@
             this.femaleRB.TabStop = true;
             this.femaleRB.Text = "Nők";
             this.femaleRB.UseVisualStyleBackColor = true;
+            this.femaleRB.CheckedChanged += new System.EventHandler(this.femaleRB_CheckedChanged);
             // 
             // maleRB
             // 
@@ -253,6 +256,7 @@
             this.maleRB.TabStop = true;
             this.maleRB.Text = "Férfiak";
             this.maleRB.UseVisualStyleBackColor = true;
+            this.maleRB.CheckedChanged += new System.EventHandler(this.maleRB_CheckedChanged);
             // 
             // label1
             // 
