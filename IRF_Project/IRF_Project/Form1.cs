@@ -32,14 +32,15 @@ namespace IRF_Project
         int _ageEnd;
         Gender _choosenGender = Gender.All;
         string _newLine = Environment.NewLine;
-
+        string _fileName = "";
+        bool _reset = false;
+        
         #endregion
 
         public Form1()
         {
             InitializeComponent();
-            LoadData();
-            RefreshDataGridView();
+            
             //CreateChart();
         }
 
@@ -65,7 +66,21 @@ namespace IRF_Project
 
         private void LoadData()
         {
-            using (StreamReader sr = new StreamReader("people.csv", Encoding.Default))
+            people.Clear();
+            dataGridView.DataSource = null;
+            dataGridView.Rows.Clear();
+            if (!_reset)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+                _fileName = ofd.FileName;
+
+            }
+            else
+            {
+                _fileName = "people.csv";
+            }
+            using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
                 string[] headline = sr.ReadLine().Split(';');
                 _educationComboBoxOption = headline[4];
@@ -98,6 +113,7 @@ namespace IRF_Project
             SaveAgeInterval();
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
+            _reset = false;
         }
 
         private void SaveAgeInterval()
@@ -129,7 +145,7 @@ namespace IRF_Project
             {
                 ageEndTB.Text = _maxAge.ToString();
             }
-            if (_ageStart>_ageEnd)
+            if (_ageStart > _ageEnd)
             {
                 MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
                 return;
@@ -153,6 +169,7 @@ namespace IRF_Project
             ageStartTB.Text = "";
             ageEndTB.Text = "";
             dataCB.SelectedIndex = 0;
+            _reset = true;
             LoadData();
             RefreshDataGridView();
             //CreateChart();
@@ -264,6 +281,11 @@ namespace IRF_Project
             }
         }
 
+        private void openFileBT_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            RefreshDataGridView();
+        }
     }
 }
 

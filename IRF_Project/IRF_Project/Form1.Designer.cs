@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Vezetéknév = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keresztnév = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,6 +59,7 @@
             this.ageEndTB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.openFileBT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartbase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBindingSource)).BeginInit();
@@ -107,8 +108,8 @@
             // 
             this.Kor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Kor.DataPropertyName = "Age";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Kor.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Kor.DefaultCellStyle = dataGridViewCellStyle1;
             this.Kor.HeaderText = "Kor";
             this.Kor.Name = "Kor";
             this.Kor.ReadOnly = true;
@@ -145,16 +146,16 @@
             // 
             // chartbase
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartbase.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chartbase.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chartbase.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartbase.Legends.Add(legend1);
             this.chartbase.Location = new System.Drawing.Point(537, 49);
             this.chartbase.Name = "chartbase";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chartbase.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartbase.Series.Add(series1);
             this.chartbase.Size = new System.Drawing.Size(507, 491);
             this.chartbase.TabIndex = 1;
             this.chartbase.Text = "chart1";
@@ -325,11 +326,22 @@
             this.label8.TabIndex = 43;
             this.label8.Text = "éves korig";
             // 
+            // openFileBT
+            // 
+            this.openFileBT.Location = new System.Drawing.Point(319, 9);
+            this.openFileBT.Name = "openFileBT";
+            this.openFileBT.Size = new System.Drawing.Size(181, 48);
+            this.openFileBT.TabIndex = 44;
+            this.openFileBT.Text = "Fájl betöltése";
+            this.openFileBT.UseVisualStyleBackColor = true;
+            this.openFileBT.Click += new System.EventHandler(this.openFileBT_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 552);
+            this.Controls.Add(this.openFileBT);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.ageEndTB);
@@ -387,6 +399,7 @@
         private System.Windows.Forms.TextBox ageEndTB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button openFileBT;
     }
 }
 
