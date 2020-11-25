@@ -147,6 +147,12 @@ namespace IRF_Project
         private void resetBT_Click(object sender, EventArgs e)
         {
             people.Clear();
+            femaleRB.Checked = false;
+            maleRB.Checked = false;
+            allRB.Checked = false;
+            ageStartTB.Text = "";
+            ageEndTB.Text = "";
+            dataCB.SelectedIndex = 0;
             LoadData();
             RefreshDataGridView();
             //CreateChart();
