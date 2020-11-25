@@ -26,9 +26,12 @@ namespace IRF_Project
         string _educationComboBoxOption = "";
         string _jobComboBoxOption = "";
         string _choosenData = "";
+        int _minAge;
+        int _maxAge;
         int _ageStart;
         int _ageEnd;
-        Gender _choosenGender=Gender.All;
+        Gender _choosenGender = Gender.All;
+        string _newLine = Environment.NewLine;
 
         #endregion
 
@@ -39,10 +42,12 @@ namespace IRF_Project
             RefreshDataGridView();
             //CreateChart();
         }
+
         //public void CreateChart()
         //{
         //    chartbase.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
         //}
+
         private void RefreshDataGridView()
         {
             label4.Text = people.Count.ToString();
@@ -90,8 +95,22 @@ namespace IRF_Project
                     });
                 }
             }
+            SaveAgeInterval();
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
+        }
+
+        private void SaveAgeInterval()
+        {
+            var lowestAge = (from x in people
+                             orderby x.Age ascending
+                             select x.Age).First();
+            _minAge = lowestAge;
+
+            var highestAge = (from x in people
+                              orderby x.Age descending
+                              select x.Age).First();
+            _maxAge = highestAge;
         }
 
         private void hintBT_Click(object sender, EventArgs e)
@@ -102,6 +121,19 @@ namespace IRF_Project
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (ageStartTB.Text == "")
+            {
+                ageStartTB.Text = _minAge.ToString();
+            }
+            if (ageEndTB.Text == "")
+            {
+                ageEndTB.Text = _maxAge.ToString();
+            }
+            if (_ageStart>_ageEnd)
+            {
+                MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
+                return;
+            }
             var torlendo = (from x in people
                             where x.HasJob != true
                             select x).ToList();
@@ -136,17 +168,28 @@ namespace IRF_Project
         {
             if (ageStartTB.Text == "")
             {
-                var lowestAge = (from x in people
-                                  orderby x.Age ascending
-                                select x.Age).First();
-                _ageStart = lowestAge;
-                ageStartTB.Text = _ageStart.ToString();
+                ageStartTB.Text = _minAge.ToString();
             }
             else
             {
                 try
                 {
-                    _ageStart = int.Parse(ageStartTB.Text);
+                    if (int.Parse(ageStartTB.Text) > _maxAge)
+                    {
+                        MessageBox.Show(string.Format("A maximális életkor a beolvasott fájl alapján: {0}", _maxAge.ToString()));
+                        ageStartTB.Text = "";
+                        ageStartTB.Focus();
+                    }
+                    else if (int.Parse(ageStartTB.Text) < _minAge)
+                    {
+                        MessageBox.Show(string.Format("A minimális életkor a beolvasott fájl alapján: {0}", _minAge.ToString()));
+                        ageStartTB.Text = _minAge.ToString();
+                        _ageStart = int.Parse(ageStartTB.Text);
+                    }
+                    else
+                    {
+                        _ageStart = int.Parse(ageStartTB.Text);
+                    }
                 }
                 catch
                 {
@@ -160,17 +203,28 @@ namespace IRF_Project
         {
             if (ageEndTB.Text == "")
             {
-                var highestAge = (from x in people
-                                 orderby x.Age descending
-                                 select x.Age).First();
-                _ageEnd = highestAge;
-                ageEndTB.Text = _ageEnd.ToString();
+                ageEndTB.Text = _maxAge.ToString();
             }
             else
             {
                 try
                 {
-                    _ageEnd = int.Parse(ageEndTB.Text);
+                    if (int.Parse(ageEndTB.Text) < _minAge)
+                    {
+                        MessageBox.Show(string.Format("A minimális életkor a beolvasott fájl alapján: {0}", _minAge.ToString()));
+                        ageEndTB.Text = "";
+                        ageEndTB.Focus();
+                    }
+                    else if (int.Parse(ageEndTB.Text) > _maxAge)
+                    {
+                        MessageBox.Show(string.Format("A maximális életkor a beolvasott fájl alapján: {0}", _maxAge.ToString()));
+                        ageEndTB.Text = _maxAge.ToString();
+                        _ageEnd = int.Parse(ageEndTB.Text);
+                    }
+                    else
+                    {
+                        _ageEnd = int.Parse(ageEndTB.Text);
+                    }
                 }
                 catch
                 {
