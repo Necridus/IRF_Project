@@ -42,7 +42,7 @@
             this.Munka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.chartbase = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.hintBT = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.dataL = new System.Windows.Forms.Label();
             this.goBT = new System.Windows.Forms.Button();
             this.chartBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataCB = new System.Windows.Forms.ComboBox();
@@ -51,15 +51,14 @@
             this.allRB = new System.Windows.Forms.RadioButton();
             this.femaleRB = new System.Windows.Forms.RadioButton();
             this.maleRB = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
+            this.genderL = new System.Windows.Forms.Label();
             this.resetBT = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.ageL = new System.Windows.Forms.Label();
+            this.ageCommentL = new System.Windows.Forms.Label();
             this.ageStartTB = new System.Windows.Forms.TextBox();
             this.ageEndTB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.openFileBT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartbase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBindingSource)).BeginInit();
@@ -178,13 +177,13 @@
             this.hintBT.UseVisualStyleBackColor = false;
             this.hintBT.Click += new System.EventHandler(this.hintBT_Click);
             // 
-            // label2
+            // dataL
             // 
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(266, 21);
-            this.label2.TabIndex = 28;
-            this.label2.Text = "Mely adatokat szeretné ábrázolni?";
+            this.dataL.Location = new System.Drawing.Point(12, 12);
+            this.dataL.Name = "dataL";
+            this.dataL.Size = new System.Drawing.Size(266, 21);
+            this.dataL.TabIndex = 28;
+            this.dataL.Text = "Mely adatokat szeretné ábrázolni?";
             // 
             // goBT
             // 
@@ -202,7 +201,7 @@
             this.dataCB.FormattingEnabled = true;
             this.dataCB.Location = new System.Drawing.Point(12, 36);
             this.dataCB.Name = "dataCB";
-            this.dataCB.Size = new System.Drawing.Size(263, 21);
+            this.dataCB.Size = new System.Drawing.Size(228, 21);
             this.dataCB.TabIndex = 30;
             this.dataCB.SelectedValueChanged += new System.EventHandler(this.dataCB_SelectedValueChanged);
             // 
@@ -259,13 +258,13 @@
             this.maleRB.UseVisualStyleBackColor = true;
             this.maleRB.CheckedChanged += new System.EventHandler(this.maleRB_CheckedChanged);
             // 
-            // label1
+            // genderL
             // 
-            this.label1.Location = new System.Drawing.Point(12, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 29);
-            this.label1.TabIndex = 36;
-            this.label1.Text = "Mely nemekre vonatkozóan szeretné az adott adatokat ábrázolni?";
+            this.genderL.Location = new System.Drawing.Point(12, 73);
+            this.genderL.Name = "genderL";
+            this.genderL.Size = new System.Drawing.Size(213, 29);
+            this.genderL.TabIndex = 36;
+            this.genderL.Text = "Mely nemekre vonatkozóan szeretné az adott adatokat ábrázolni?";
             // 
             // resetBT
             // 
@@ -277,22 +276,22 @@
             this.resetBT.UseVisualStyleBackColor = true;
             this.resetBT.Click += new System.EventHandler(this.resetBT_Click);
             // 
-            // label5
+            // ageL
             // 
-            this.label5.Location = new System.Drawing.Point(250, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 15);
-            this.label5.TabIndex = 38;
-            this.label5.Text = "Válassza ki, mely korosztály érdekli!";
+            this.ageL.Location = new System.Drawing.Point(250, 73);
+            this.ageL.Name = "ageL";
+            this.ageL.Size = new System.Drawing.Size(227, 15);
+            this.ageL.TabIndex = 38;
+            this.ageL.Text = "Válassza ki, mely korosztály érdekli!";
             // 
-            // label6
+            // ageCommentL
             // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(250, 87);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(281, 15);
-            this.label6.TabIndex = 39;
-            this.label6.Text = "(amennyiben nem szeretne felső határt, hagyja üresen!)";
+            this.ageCommentL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ageCommentL.Location = new System.Drawing.Point(250, 87);
+            this.ageCommentL.Name = "ageCommentL";
+            this.ageCommentL.Size = new System.Drawing.Size(281, 15);
+            this.ageCommentL.TabIndex = 39;
+            this.ageCommentL.Text = "(amennyiben nem szeretne felső határt, hagyja üresen!)";
             // 
             // ageStartTB
             // 
@@ -326,30 +325,19 @@
             this.label8.TabIndex = 43;
             this.label8.Text = "éves korig";
             // 
-            // openFileBT
-            // 
-            this.openFileBT.Location = new System.Drawing.Point(319, 9);
-            this.openFileBT.Name = "openFileBT";
-            this.openFileBT.Size = new System.Drawing.Size(181, 48);
-            this.openFileBT.TabIndex = 44;
-            this.openFileBT.Text = "Fájl betöltése";
-            this.openFileBT.UseVisualStyleBackColor = true;
-            this.openFileBT.Click += new System.EventHandler(this.openFileBT_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 552);
-            this.Controls.Add(this.openFileBT);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.ageEndTB);
             this.Controls.Add(this.ageStartTB);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.ageCommentL);
+            this.Controls.Add(this.ageL);
             this.Controls.Add(this.resetBT);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.genderL);
             this.Controls.Add(this.allRB);
             this.Controls.Add(this.maleRB);
             this.Controls.Add(this.femaleRB);
@@ -357,7 +345,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataCB);
             this.Controls.Add(this.goBT);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dataL);
             this.Controls.Add(this.hintBT);
             this.Controls.Add(this.chartbase);
             this.Controls.Add(this.dataGridView);
@@ -382,7 +370,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Nem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iskola;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Munka;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label dataL;
         private System.Windows.Forms.Button goBT;
         private System.Windows.Forms.BindingSource chartBindingSource;
         private System.Windows.Forms.ComboBox dataCB;
@@ -391,15 +379,14 @@
         private System.Windows.Forms.RadioButton allRB;
         private System.Windows.Forms.RadioButton femaleRB;
         private System.Windows.Forms.RadioButton maleRB;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label genderL;
         private System.Windows.Forms.Button resetBT;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label ageL;
+        private System.Windows.Forms.Label ageCommentL;
         private System.Windows.Forms.TextBox ageStartTB;
         private System.Windows.Forms.TextBox ageEndTB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button openFileBT;
     }
 }
 

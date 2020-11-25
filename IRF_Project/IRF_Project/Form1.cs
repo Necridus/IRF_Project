@@ -40,9 +40,12 @@ namespace IRF_Project
         public Form1()
         {
             InitializeComponent();
-            
+            FileButton fileButton = new FileButton(dataCB.Width,dataCB.Height*2,chartbase.Left-ageL.Left,dataL.Top,"Fájl betöltése");
+            Controls.Add(fileButton);
+            fileButton.Click += FileButton_Click;
             //CreateChart();
         }
+
 
         //public void CreateChart()
         //{
@@ -281,7 +284,7 @@ namespace IRF_Project
             }
         }
 
-        private void openFileBT_Click(object sender, EventArgs e)
+        private void FileButton_Click(object sender, EventArgs e)
         {
             LoadData();
             RefreshDataGridView();
