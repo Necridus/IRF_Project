@@ -23,6 +23,9 @@ namespace IRF_Project
 
         #region Properties
 
+        CostumButton _fileButton;
+        CostumButton _startButton;
+        CostumButton _resetButton;
         string _educationComboBoxOption = "";
         string _jobComboBoxOption = "";
         string _choosenData = "";
@@ -40,12 +43,76 @@ namespace IRF_Project
         public Form1()
         {
             InitializeComponent();
-            FileButton fileButton = new FileButton(dataCB.Width,dataCB.Height*2,chartbase.Left-ageL.Left,dataL.Top,"Fájl betöltése");
-            Controls.Add(fileButton);
-            fileButton.Click += FileButton_Click;
+            LoadScreen();
             //CreateChart();
         }
 
+        public void LoadScreen()
+        {
+            CostumButton fileButton = new CostumButton(dataCB.Width, dataCB.Height * 2, chartbase.Left - ageL.Left, dataL.Top, "Fájl betöltése");
+            Controls.Add(fileButton);
+            _fileButton = fileButton;
+            fileButton.Enabled = true;
+            fileButton.Click += FileButton_Click; ;
+
+            CostumButton startButton = new CostumButton(allRB.Width, allRB.Height * 2, fileButton.Left, allRB.Top, "Mehet!");
+            Controls.Add(startButton);
+            _startButton = startButton;
+            startButton.Enabled = false;
+            startButton.Click += StartButton_Click;
+
+            CostumButton resetButton = new CostumButton(allRB.Width, allRB.Height * 2, chartbase.Left - ageL.Left/2, startButton.Top, "Reset");
+            Controls.Add(resetButton);
+            _resetButton = resetButton;
+            resetButton.Enabled = false;
+            resetButton.Click += ResetButton_Click; ;
+        }
+
+        private void FileButton_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            RefreshDataGridView();
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            if (ageStartTB.Text == "")
+            {
+                ageStartTB.Text = _minAge.ToString();
+            }
+            if (ageEndTB.Text == "")
+            {
+                ageEndTB.Text = _maxAge.ToString();
+            }
+            if (_ageStart > _ageEnd)
+            {
+                MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
+                return;
+            }
+            var torlendo = (from x in people
+                            where x.HasJob != true
+                            select x).ToList();
+            foreach (Person person in torlendo)
+            {
+                people.Remove(person);
+            }
+            RefreshDataGridView();
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            people.Clear();
+            femaleRB.Checked = false;
+            maleRB.Checked = false;
+            allRB.Checked = false;
+            ageStartTB.Text = "";
+            ageEndTB.Text = "";
+            dataCB.SelectedIndex = 0;
+            _reset = true;
+            LoadData();
+            RefreshDataGridView();
+            //CreateChart();
+        }
 
         //public void CreateChart()
         //{
@@ -75,7 +142,12 @@ namespace IRF_Project
             if (!_reset)
             {
                 OpenFileDialog ofd = new OpenFileDialog();
-                if (ofd.ShowDialog() != DialogResult.OK) return;
+                if (ofd.ShowDialog() != DialogResult.OK)
+                {
+                    _resetButton.Enabled = false;
+                    _startButton.Enabled = false;
+                    return;
+                }
                 _fileName = ofd.FileName;
 
             }
@@ -116,6 +188,8 @@ namespace IRF_Project
             SaveAgeInterval();
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
+            _resetButton.Enabled = true;
+            _startButton.Enabled = true;
             _reset = false;
         }
 
@@ -136,46 +210,6 @@ namespace IRF_Project
         {
             var newline = Environment.NewLine;
             MessageBox.Show(String.Format("súgó{0}üzenet", newline));
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (ageStartTB.Text == "")
-            {
-                ageStartTB.Text = _minAge.ToString();
-            }
-            if (ageEndTB.Text == "")
-            {
-                ageEndTB.Text = _maxAge.ToString();
-            }
-            if (_ageStart > _ageEnd)
-            {
-                MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
-                return;
-            }
-            var torlendo = (from x in people
-                            where x.HasJob != true
-                            select x).ToList();
-            foreach (Person person in torlendo)
-            {
-                people.Remove(person);
-            }
-            RefreshDataGridView();
-        }
-
-        private void resetBT_Click(object sender, EventArgs e)
-        {
-            people.Clear();
-            femaleRB.Checked = false;
-            maleRB.Checked = false;
-            allRB.Checked = false;
-            ageStartTB.Text = "";
-            ageEndTB.Text = "";
-            dataCB.SelectedIndex = 0;
-            _reset = true;
-            LoadData();
-            RefreshDataGridView();
-            //CreateChart();
         }
 
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
@@ -282,12 +316,6 @@ namespace IRF_Project
             {
                 _choosenGender = Gender.All;
             }
-        }
-
-        private void FileButton_Click(object sender, EventArgs e)
-        {
-            LoadData();
-            RefreshDataGridView();
         }
     }
 }

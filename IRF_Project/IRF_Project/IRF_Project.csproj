@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\FileButton.cs">
+    <Compile Include="Entities\CostumButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\Gender.cs" />

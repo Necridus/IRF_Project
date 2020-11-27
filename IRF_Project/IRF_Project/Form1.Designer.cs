@@ -43,7 +43,6 @@
             this.chartbase = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.hintBT = new System.Windows.Forms.Button();
             this.dataL = new System.Windows.Forms.Label();
-            this.goBT = new System.Windows.Forms.Button();
             this.chartBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataCB = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,7 +51,6 @@
             this.femaleRB = new System.Windows.Forms.RadioButton();
             this.maleRB = new System.Windows.Forms.RadioButton();
             this.genderL = new System.Windows.Forms.Label();
-            this.resetBT = new System.Windows.Forms.Button();
             this.ageL = new System.Windows.Forms.Label();
             this.ageCommentL = new System.Windows.Forms.Label();
             this.ageStartTB = new System.Windows.Forms.TextBox();
@@ -185,16 +183,6 @@
             this.dataL.TabIndex = 28;
             this.dataL.Text = "Mely adatokat szeretné ábrázolni?";
             // 
-            // goBT
-            // 
-            this.goBT.Location = new System.Drawing.Point(22, 203);
-            this.goBT.Name = "goBT";
-            this.goBT.Size = new System.Drawing.Size(75, 23);
-            this.goBT.TabIndex = 29;
-            this.goBT.Text = "Mehet!";
-            this.goBT.UseVisualStyleBackColor = true;
-            this.goBT.Click += new System.EventHandler(this.button1_Click);
-            // 
             // dataCB
             // 
             this.dataCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -266,16 +254,6 @@
             this.genderL.TabIndex = 36;
             this.genderL.Text = "Mely nemekre vonatkozóan szeretné az adott adatokat ábrázolni?";
             // 
-            // resetBT
-            // 
-            this.resetBT.Location = new System.Drawing.Point(115, 203);
-            this.resetBT.Name = "resetBT";
-            this.resetBT.Size = new System.Drawing.Size(75, 23);
-            this.resetBT.TabIndex = 37;
-            this.resetBT.Text = "Mégse";
-            this.resetBT.UseVisualStyleBackColor = true;
-            this.resetBT.Click += new System.EventHandler(this.resetBT_Click);
-            // 
             // ageL
             // 
             this.ageL.Location = new System.Drawing.Point(250, 73);
@@ -336,7 +314,6 @@
             this.Controls.Add(this.ageStartTB);
             this.Controls.Add(this.ageCommentL);
             this.Controls.Add(this.ageL);
-            this.Controls.Add(this.resetBT);
             this.Controls.Add(this.genderL);
             this.Controls.Add(this.allRB);
             this.Controls.Add(this.maleRB);
@@ -344,7 +321,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataCB);
-            this.Controls.Add(this.goBT);
             this.Controls.Add(this.dataL);
             this.Controls.Add(this.hintBT);
             this.Controls.Add(this.chartbase);
@@ -371,7 +347,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Iskola;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Munka;
         private System.Windows.Forms.Label dataL;
-        private System.Windows.Forms.Button goBT;
         private System.Windows.Forms.BindingSource chartBindingSource;
         private System.Windows.Forms.ComboBox dataCB;
         private System.Windows.Forms.Label label3;
@@ -380,7 +355,6 @@
         private System.Windows.Forms.RadioButton femaleRB;
         private System.Windows.Forms.RadioButton maleRB;
         private System.Windows.Forms.Label genderL;
-        private System.Windows.Forms.Button resetBT;
         private System.Windows.Forms.Label ageL;
         private System.Windows.Forms.Label ageCommentL;
         private System.Windows.Forms.TextBox ageStartTB;
