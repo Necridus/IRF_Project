@@ -65,7 +65,10 @@ namespace IRF_Project
             Controls.Add(resetButton);
             _resetButton = resetButton;
             resetButton.Enabled = false;
-            resetButton.Click += ResetButton_Click; ;
+            resetButton.Click += ResetButton_Click;
+
+            ageStartTB.Enabled = false;
+            ageEndTB.Enabled = false;
         }
 
         private void FileButton_Click(object sender, EventArgs e)
@@ -93,7 +96,7 @@ namespace IRF_Project
                 MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
                 return;
             }
-            toDelete = ChooseGender(_choosenGender);
+            toDelete = ChoosePeopleToDelete(_choosenGender);
             foreach (Person person in toDelete)
             {
                 people.Remove(person);
@@ -101,7 +104,7 @@ namespace IRF_Project
             RefreshDataGridView();
         }
 
-        private List<Person> ChooseGender(Gender choosenGender)
+        private List<Person> ChoosePeopleToDelete(Gender choosenGender)
         {
             List<Person> toDelete = new List<Person>();
             List<Person> toDeleteAgeMin = new List<Person>();
@@ -173,30 +176,30 @@ namespace IRF_Project
 
         private void LoadData()
         {
+            #region comment this region out for faster testing
+
+            if (!_reset)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() != DialogResult.OK)
+                {
+                    _resetButton.Enabled = false;
+                    _startButton.Enabled = false;
+                    return;
+                }
+                _fileName = ofd.FileName;
+
+            }
+            else
+            {
+                #endregion
+                _fileName = "people.csv";
+                #region comment this region out for faster testing
+            }
+            #endregion
             people.Clear();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
-
-            ///
-            ///Commented out for faster testing
-            ///
-
-            //if (!_reset)
-            //{
-            //    OpenFileDialog ofd = new OpenFileDialog();
-            //    if (ofd.ShowDialog() != DialogResult.OK)
-            //    {
-            //        _resetButton.Enabled = false;
-            //        _startButton.Enabled = false;
-            //        return;
-            //    }
-            //    _fileName = ofd.FileName;
-
-            //}
-            //else
-            //{
-            _fileName = "people.csv";
-            //}
             using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
                 string[] headline = sr.ReadLine().Split(';');
@@ -232,6 +235,8 @@ namespace IRF_Project
             label4.Text = people.Count.ToString();
             _resetButton.Enabled = true;
             _reset = false;
+            ageStartTB.Enabled = true;
+            ageEndTB.Enabled = true;
         }
 
         private void SaveAgeInterval()
