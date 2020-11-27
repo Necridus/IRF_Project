@@ -37,7 +37,7 @@ namespace IRF_Project
         string _newLine = Environment.NewLine;
         string _fileName = "";
         bool _reset = false;
-        
+
         #endregion
 
         public Form1()
@@ -61,7 +61,7 @@ namespace IRF_Project
             startButton.Enabled = false;
             startButton.Click += StartButton_Click;
 
-            CostumButton resetButton = new CostumButton(allRB.Width, allRB.Height * 2, chartbase.Left - ageL.Left/2, startButton.Top, "Reset");
+            CostumButton resetButton = new CostumButton(allRB.Width, allRB.Height * 2, chartbase.Left - ageL.Left / 2, startButton.Top, "Reset");
             Controls.Add(resetButton);
             _resetButton = resetButton;
             resetButton.Enabled = false;
@@ -76,27 +76,63 @@ namespace IRF_Project
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            if (ageStartTB.Text == "")
+            List<Person> toDelete = new List<Person>();
+
+            if (ageStartTB.Text.Equals(""))
             {
                 ageStartTB.Text = _minAge.ToString();
             }
-            if (ageEndTB.Text == "")
+            _ageStart = int.Parse(ageStartTB.Text);
+            if (ageEndTB.Text.Equals(""))
             {
                 ageEndTB.Text = _maxAge.ToString();
             }
+            _ageEnd = int.Parse(ageEndTB.Text);
             if (_ageStart > _ageEnd)
             {
                 MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
                 return;
             }
-            var torlendo = (from x in people
-                            where x.HasJob != true
-                            select x).ToList();
-            foreach (Person person in torlendo)
+            toDelete = ChooseGender(_choosenGender);
+            foreach (Person person in toDelete)
             {
                 people.Remove(person);
             }
             RefreshDataGridView();
+        }
+
+        private List<Person> ChooseGender(Gender choosenGender)
+        {
+            List<Person> toDelete = new List<Person>();
+            List<Person> toDeleteAgeMin = new List<Person>();
+            List<Person> toDeleteAgeMax = new List<Person>();
+            List<Person> toDeleteGender = new List<Person>();
+            toDeleteAgeMin = (from x in people
+                              where x.Age < _ageStart
+                              select x).ToList();
+            toDeleteAgeMax = (from x in people
+                              where x.Age > _ageEnd
+                              select x).ToList();
+            foreach (var person in toDeleteAgeMin)
+            {
+                toDelete.Add(person);
+            }
+            foreach (var person in toDeleteAgeMax)
+            {
+                toDelete.Add(person);
+            }
+
+            if (choosenGender != Gender.All)
+            {
+                toDeleteGender = (from x in people
+                                  where x.Gender != _choosenGender
+                                  select x).ToList();
+                foreach (var person in toDeleteGender)
+                {
+                    toDelete.Add(person);
+                }
+            }
+            return toDelete;
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -105,6 +141,7 @@ namespace IRF_Project
             femaleRB.Checked = false;
             maleRB.Checked = false;
             allRB.Checked = false;
+            _startButton.Enabled = false;
             ageStartTB.Text = "";
             ageEndTB.Text = "";
             dataCB.SelectedIndex = 0;
@@ -139,22 +176,27 @@ namespace IRF_Project
             people.Clear();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
-            if (!_reset)
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                if (ofd.ShowDialog() != DialogResult.OK)
-                {
-                    _resetButton.Enabled = false;
-                    _startButton.Enabled = false;
-                    return;
-                }
-                _fileName = ofd.FileName;
 
-            }
-            else
-            {
-                _fileName = "people.csv";
-            }
+            ///
+            ///Commented out for faster testing
+            ///
+
+            //if (!_reset)
+            //{
+            //    OpenFileDialog ofd = new OpenFileDialog();
+            //    if (ofd.ShowDialog() != DialogResult.OK)
+            //    {
+            //        _resetButton.Enabled = false;
+            //        _startButton.Enabled = false;
+            //        return;
+            //    }
+            //    _fileName = ofd.FileName;
+
+            //}
+            //else
+            //{
+            _fileName = "people.csv";
+            //}
             using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
                 string[] headline = sr.ReadLine().Split(';');
@@ -166,7 +208,7 @@ namespace IRF_Project
                 {
                     bool hasJob = false;
                     string[] line = sr.ReadLine().Split(';');
-                    if (line[5] == "van")
+                    if (line[5].Equals("van"))
                     {
                         hasJob = true;
                     }
@@ -189,7 +231,6 @@ namespace IRF_Project
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
             _resetButton.Enabled = true;
-            _startButton.Enabled = true;
             _reset = false;
         }
 
@@ -214,11 +255,11 @@ namespace IRF_Project
 
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (dataCB.SelectedValue.ToString() == _educationComboBoxOption)
+            if (dataCB.SelectedValue.ToString().Equals(_educationComboBoxOption))
             {
                 _choosenData = "Education";
             }
-            else if (dataCB.SelectedValue.ToString() == _jobComboBoxOption)
+            else if (dataCB.SelectedValue.ToString().Equals(_jobComboBoxOption))
             {
                 _choosenData = "hasJob";
             }
@@ -226,7 +267,7 @@ namespace IRF_Project
 
         private void ageStartTB_Leave(object sender, EventArgs e)
         {
-            if (ageStartTB.Text == "")
+            if (ageStartTB.Text.Equals(""))
             {
                 ageStartTB.Text = _minAge.ToString();
             }
@@ -244,11 +285,6 @@ namespace IRF_Project
                     {
                         MessageBox.Show(string.Format("A minimális életkor a beolvasott fájl alapján: {0}", _minAge.ToString()));
                         ageStartTB.Text = _minAge.ToString();
-                        _ageStart = int.Parse(ageStartTB.Text);
-                    }
-                    else
-                    {
-                        _ageStart = int.Parse(ageStartTB.Text);
                     }
                 }
                 catch
@@ -261,7 +297,7 @@ namespace IRF_Project
 
         private void ageEndTB_Leave(object sender, EventArgs e)
         {
-            if (ageEndTB.Text == "")
+            if (ageEndTB.Text.Equals(""))
             {
                 ageEndTB.Text = _maxAge.ToString();
             }
@@ -279,11 +315,6 @@ namespace IRF_Project
                     {
                         MessageBox.Show(string.Format("A maximális életkor a beolvasott fájl alapján: {0}", _maxAge.ToString()));
                         ageEndTB.Text = _maxAge.ToString();
-                        _ageEnd = int.Parse(ageEndTB.Text);
-                    }
-                    else
-                    {
-                        _ageEnd = int.Parse(ageEndTB.Text);
                     }
                 }
                 catch
@@ -300,6 +331,7 @@ namespace IRF_Project
             {
                 _choosenGender = Gender.Female;
             }
+            _startButton.Enabled = true;
         }
 
         private void maleRB_CheckedChanged(object sender, EventArgs e)
@@ -308,6 +340,7 @@ namespace IRF_Project
             {
                 _choosenGender = Gender.Male;
             }
+            _startButton.Enabled = true;
         }
 
         private void allRB_CheckedChanged(object sender, EventArgs e)
@@ -316,6 +349,7 @@ namespace IRF_Project
             {
                 _choosenGender = Gender.All;
             }
+            _startButton.Enabled = true;
         }
     }
 }
