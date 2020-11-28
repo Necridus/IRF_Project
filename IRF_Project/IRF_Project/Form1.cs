@@ -1,13 +1,10 @@
 ﻿using IRF_Project.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IRF_Project
@@ -53,7 +50,7 @@ namespace IRF_Project
             Controls.Add(fileButton);
             _fileButton = fileButton;
             fileButton.Enabled = true;
-            fileButton.Click += FileButton_Click; ;
+            fileButton.Click += FileButton_Click;
 
             CostumButton startButton = new CostumButton(allRB.Width, allRB.Height * 2, fileButton.Left, allRB.Top, "Mehet!");
             Controls.Add(startButton);
@@ -67,6 +64,10 @@ namespace IRF_Project
             resetButton.Enabled = false;
             resetButton.Click += ResetButton_Click;
 
+            allRB.Enabled = false;
+            maleRB.Enabled = false;
+            dataCB.Enabled = false;
+            femaleRB.Enabled = false;
             ageStartTB.Enabled = false;
             ageEndTB.Enabled = false;
         }
@@ -102,6 +103,8 @@ namespace IRF_Project
                 people.Remove(person);
             }
             RefreshDataGridView();
+            CreateChart();
+            _startButton.Enabled = false;
         }
 
         private List<Person> ChoosePeopleToDelete(Gender choosenGender)
@@ -154,10 +157,35 @@ namespace IRF_Project
             //CreateChart();
         }
 
-        //public void CreateChart()
-        //{
-        //    chartbase.Series["Series1"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-        //}
+        public void CreateChart()
+        {
+            if (_choosenData.Equals("Education"))
+            {
+                var dataAmount = from x in people
+                                 group x by x.Education
+                             into g
+                                 select new ChartData()
+                                 {
+                                     ChoosenData = g.Key,
+                                     Amount = (from x in g select x).Count()
+                                 };
+                chartBindingSource.DataSource = dataAmount.ToList();
+                chartbase.DataBind();
+            }
+            else
+            {
+                var dataAmount = from x in people
+                                 group x by x.HasJob
+                             into g
+                                 select new ChartData()
+                                 {
+                                     ChoosenData = g.Key.ToString(),
+                                     Amount = (from x in g select x).Count()
+                                 };
+                chartBindingSource.DataSource = dataAmount.ToList();
+                chartbase.DataBind();
+            }
+        }
 
         private void RefreshDataGridView()
         {
@@ -176,30 +204,34 @@ namespace IRF_Project
 
         private void LoadData()
         {
-            #region comment this region out for faster testing
+            //#region comment this region out for faster testing
 
-            if (!_reset)
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                if (ofd.ShowDialog() != DialogResult.OK)
-                {
-                    _resetButton.Enabled = false;
-                    _startButton.Enabled = false;
-                    return;
-                }
-                _fileName = ofd.FileName;
+            //if (!_reset)
+            //{
+            //    OpenFileDialog ofd = new OpenFileDialog();
+            //    if (ofd.ShowDialog() != DialogResult.OK)
+            //    {
+            //        _resetButton.Enabled = false;
+            //        _startButton.Enabled = false;
+            //        return;
+            //    }
+            //    _fileName = ofd.FileName;
 
-            }
-            else
-            {
-                #endregion
-                _fileName = "people.csv";
-                #region comment this region out for faster testing
-            }
-            #endregion
+            //}
+            //else
+            //{
+            //    #endregion
+            _fileName = "people.csv";
+            //    #region comment this region out for faster testing
+            //}
+            //#endregion
             people.Clear();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
+            foreach (var series in chartbase.Series)
+            {
+                series.Points.Clear();
+            }
             using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
                 string[] headline = sr.ReadLine().Split(';');
@@ -233,10 +265,14 @@ namespace IRF_Project
             SaveAgeInterval();
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
-            _resetButton.Enabled = true;
             _reset = false;
-            ageStartTB.Enabled = true;
+            allRB.Enabled = true;
+            dataCB.Enabled = true;
+            maleRB.Enabled = true;
+            femaleRB.Enabled = true;
             ageEndTB.Enabled = true;
+            ageStartTB.Enabled = true;
+            _resetButton.Enabled = true;
         }
 
         private void SaveAgeInterval()

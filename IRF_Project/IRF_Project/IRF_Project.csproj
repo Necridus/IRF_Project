@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ChartData.cs" />
     <Compile Include="Entities\CostumButton.cs">
       <SubType>Component</SubType>
     </Compile>

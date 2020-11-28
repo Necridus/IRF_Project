@@ -145,13 +145,18 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chartbase.ChartAreas.Add(chartArea1);
+            this.chartbase.DataSource = this.chartBindingSource;
             legend1.Name = "Legend1";
             this.chartbase.Legends.Add(legend1);
             this.chartbase.Location = new System.Drawing.Point(537, 49);
             this.chartbase.Name = "chartbase";
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.IsValueShownAsLabel = true;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
+            series1.XValueMember = "ChoosenData";
+            series1.YValueMembers = "Amount";
             this.chartbase.Series.Add(series1);
             this.chartbase.Size = new System.Drawing.Size(507, 491);
             this.chartbase.TabIndex = 1;
