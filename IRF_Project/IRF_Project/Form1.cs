@@ -20,9 +20,9 @@ namespace IRF_Project
 
         #region Properties
 
-        CostumButton _fileButton;
-        CostumButton _startButton;
-        CostumButton _resetButton;
+        ControllerButton _fileButton;
+        ControllerButton _startButton;
+        ControllerButton _resetButton;
         string _educationComboBoxOption = "";
         string _jobComboBoxOption = "";
         string _choosenData = "";
@@ -34,6 +34,7 @@ namespace IRF_Project
         string _newLine = Environment.NewLine;
         string _fileName = "";
         bool _reset = false;
+        string newline = Environment.NewLine;
 
         #endregion
 
@@ -41,28 +42,12 @@ namespace IRF_Project
         {
             InitializeComponent();
             LoadScreen();
-            //CreateChart();
         }
 
         public void LoadScreen()
         {
-            CostumButton fileButton = new CostumButton(dataCB.Width, dataCB.Height * 2, chartbase.Left - ageL.Left, dataL.Top, "Fájl betöltése");
-            Controls.Add(fileButton);
-            _fileButton = fileButton;
-            fileButton.Enabled = true;
-            fileButton.Click += FileButton_Click;
-
-            CostumButton startButton = new CostumButton(allRB.Width, allRB.Height * 2, fileButton.Left, allRB.Top, "Mehet!");
-            Controls.Add(startButton);
-            _startButton = startButton;
-            startButton.Enabled = false;
-            startButton.Click += StartButton_Click;
-
-            CostumButton resetButton = new CostumButton(allRB.Width, allRB.Height * 2, chartbase.Left - ageL.Left / 2, startButton.Top, "Reset");
-            Controls.Add(resetButton);
-            _resetButton = resetButton;
-            resetButton.Enabled = false;
-            resetButton.Click += ResetButton_Click;
+            LoadCostumButtons();
+            LoadHintButtons();
 
             allRB.Enabled = false;
             maleRB.Enabled = false;
@@ -70,6 +55,37 @@ namespace IRF_Project
             femaleRB.Enabled = false;
             ageStartTB.Enabled = false;
             ageEndTB.Enabled = false;
+        }
+
+        private void LoadHintButtons()
+        {
+            HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("súgó{0}üzenetdata", newline));
+            Controls.Add(dataHintButton);
+            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("súgó{0}üzenetgender", newline));
+            Controls.Add(genderHintButton);
+            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("súgó{0}üzenetage", newline));
+            Controls.Add(ageHintButton);
+        }
+
+        private void LoadCostumButtons()
+        {
+            ControllerButton fileButton = new ControllerButton(dataCB.Width, dataCB.Height * 2, chartbase.Left - ageL.Left, dataL.Top, "Fájl betöltése");
+            Controls.Add(fileButton);
+            _fileButton = fileButton;
+            fileButton.Enabled = true;
+            fileButton.Click += FileButton_Click;
+
+            ControllerButton startButton = new ControllerButton(allRB.Width, allRB.Height * 2, fileButton.Left, allRB.Top, "Mehet!");
+            Controls.Add(startButton);
+            _startButton = startButton;
+            startButton.Enabled = false;
+            startButton.Click += StartButton_Click;
+
+            ControllerButton resetButton = new ControllerButton(allRB.Width, allRB.Height * 2, chartbase.Left - ageL.Left / 2, startButton.Top, "Reset");
+            Controls.Add(resetButton);
+            _resetButton = resetButton;
+            resetButton.Enabled = false;
+            resetButton.Click += ResetButton_Click;
         }
 
         private void FileButton_Click(object sender, EventArgs e)
@@ -288,12 +304,6 @@ namespace IRF_Project
             _maxAge = highestAge;
         }
 
-        private void hintBT_Click(object sender, EventArgs e)
-        {
-            var newline = Environment.NewLine;
-            MessageBox.Show(String.Format("súgó{0}üzenet", newline));
-        }
-
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
         {
             if (dataCB.SelectedValue.ToString().Equals(_educationComboBoxOption))
@@ -391,6 +401,11 @@ namespace IRF_Project
                 _choosenGender = Gender.All;
             }
             _startButton.Enabled = true;
+        }
+
+        private void hintBT_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

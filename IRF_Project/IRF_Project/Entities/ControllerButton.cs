@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace IRF_Project.Entities
 {
-    public class CostumButton : Button
+    public class ControllerButton : Button
     {
         Color color = Color.Transparent;
-        public CostumButton(int width, int height, int left, int top, string text)
+        public ControllerButton(int width, int height, int left, int top, string text)
         {
             Width = width;
             Height = height;
