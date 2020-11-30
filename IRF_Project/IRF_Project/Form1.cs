@@ -44,7 +44,7 @@ namespace IRF_Project
             LoadScreen();
         }
 
-        public void LoadScreen()
+        private void LoadScreen()
         {
             LoadCostumButtons();
             LoadHintButtons();
@@ -178,7 +178,7 @@ namespace IRF_Project
             //CreateChart();
         }
 
-        public void CreateChart()
+        private void CreateChart()
         {
             if (_choosenData.Equals("Education"))
             {
