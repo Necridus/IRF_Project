@@ -122,7 +122,10 @@ namespace IRF_Project
             }
             RefreshDataGridView();
             CreateChart();
-            _startButton.Enabled = false;
+
+            allRB.Enabled = false;
+            maleRB.Enabled = false;
+            femaleRB.Enabled = false;
         }
 
         private List<Person> ChoosePeopleToDelete(Gender choosenGender)
@@ -412,11 +415,6 @@ namespace IRF_Project
                 _choosenGender = Gender.All;
             }
             _startButton.Enabled = true;
-        }
-
-        private void hintBT_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
