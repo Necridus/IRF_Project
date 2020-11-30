@@ -220,27 +220,27 @@ namespace IRF_Project
 
         private void LoadData()
         {
-            //#region comment this region out for faster testing
+            #region comment this region out for faster testing
 
-            //if (!_reset)
-            //{
-            //    OpenFileDialog ofd = new OpenFileDialog();
-            //    if (ofd.ShowDialog() != DialogResult.OK)
-            //    {
-            //        _resetButton.Enabled = false;
-            //        _startButton.Enabled = false;
-            //        return;
-            //    }
-            //    _fileName = ofd.FileName;
+            if (!_reset)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() != DialogResult.OK)
+                {
+                    _resetButton.Enabled = false;
+                    _startButton.Enabled = false;
+                    return;
+                }
+                _fileName = ofd.FileName;
 
-            //}
-            //else
-            //{
-            //    #endregion
-            _fileName = "people.csv";
-            //    #region comment this region out for faster testing
-            //}
-            //#endregion
+            }
+            else
+            {
+                #endregion
+                _fileName = "people.csv";
+                #region comment this region out for faster testing
+            }
+            #endregion
             people.Clear();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
@@ -250,33 +250,42 @@ namespace IRF_Project
             }
             using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
-                string[] headline = sr.ReadLine().Split(';');
-                _educationComboBoxOption = headline[4];
-                _jobComboBoxOption = headline[5];
-                datas.Add(_educationComboBoxOption);
-                datas.Add(_jobComboBoxOption);
-                while (!sr.EndOfStream)
+                try
                 {
-                    bool hasJob = false;
-                    string[] line = sr.ReadLine().Split(';');
-                    if (line[5].Equals("van"))
+                    string[] headline = sr.ReadLine().Split(';');
+                    _educationComboBoxOption = headline[4];
+                    _jobComboBoxOption = headline[5];
+                    datas.Add(_educationComboBoxOption);
+                    datas.Add(_jobComboBoxOption);
+                    while (!sr.EndOfStream)
                     {
-                        hasJob = true;
+                        bool hasJob = false;
+                        string[] line = sr.ReadLine().Split(';');
+                        if (line[5].Equals("van"))
+                        {
+                            hasJob = true;
+                        }
+                        else
+                        {
+                            hasJob = false;
+                        }
+                        people.Add(new Person()
+                        {
+                            LastName = line[0],
+                            FirstName = line[1],
+                            Age = int.Parse(line[2]),
+                            Gender = (Gender)Enum.Parse(typeof(Gender), line[3]),
+                            Education = line[4],
+                            HasJob = hasJob
+                        });
                     }
-                    else
-                    {
-                        hasJob = false;
-                    }
-                    people.Add(new Person()
-                    {
-                        LastName = line[0],
-                        FirstName = line[1],
-                        Age = int.Parse(line[2]),
-                        Gender = (Gender)Enum.Parse(typeof(Gender), line[3]),
-                        Education = line[4],
-                        HasJob = hasJob
-                    });
                 }
+                catch (Exception)
+                {
+                    MessageBox.Show(String.Format("Kérem, hogy megfelelő felépítésű fájlt próbáljon beolvasni!{0}{0}Jó példa erre a people.csv fájl, ami megtalálható a program{0}megfelelő mappájában!", newline));
+                    return;
+                }
+
             }
             SaveAgeInterval();
             dataCB.DataSource = datas;
