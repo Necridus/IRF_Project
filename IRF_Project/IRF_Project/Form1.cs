@@ -59,11 +59,13 @@ namespace IRF_Project
 
         private void LoadHintButtons()
         {
-            HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("súgó{0}üzenetdata", newline));
+            HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("A fájl betöltése után lehetősége van kiválasztani,{0}mely adatok megoszlására kíváncsi!", newline));
             Controls.Add(dataHintButton);
-            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("súgó{0}üzenetgender", newline));
+
+            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el a reset gombot megnyomni!", newline));
             Controls.Add(genderHintButton);
-            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("súgó{0}üzenetage", newline));
+            
+            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a legnagyobb értékeket választja ki a program!", newline));
             Controls.Add(ageHintButton);
         }
 

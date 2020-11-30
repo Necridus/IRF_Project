@@ -10,7 +10,10 @@ namespace IRF_Project.Entities
 {
     public class ControllerButton : Button
     {
+        #region properties
         Color color = Color.Transparent;
+        #endregion
+
         public ControllerButton(int width, int height, int left, int top, string text)
         {
             Width = width;

@@ -10,8 +10,11 @@ namespace IRF_Project.Entities
 {
     public class HintButton : Button
     {
+        #region properties
         string _messageText;
         int _size = 20;
+        #endregion
+
         public HintButton(int left, int top, string messageText)
         {
             Width = _size;
@@ -20,11 +23,17 @@ namespace IRF_Project.Entities
             Top = top;
             Text = "?";
             _messageText = messageText;
-            BackColor = Color.FromArgb(105,135,200);
+            BackColor = Color.FromArgb(105, 135, 200);
             ForeColor = Color.White;
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
+            MouseHover += HintButton_MouseHover;
             MouseClick += HintButton_MouseClick;
+        }
+
+        private void HintButton_MouseHover(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.Help;
         }
 
         private void HintButton_MouseClick(object sender, MouseEventArgs e)
