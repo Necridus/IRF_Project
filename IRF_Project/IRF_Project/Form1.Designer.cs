@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Vezetéknév = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keresztnév = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,8 +104,8 @@
             // 
             this.Kor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Kor.DataPropertyName = "Age";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Kor.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Kor.DefaultCellStyle = dataGridViewCellStyle4;
             this.Kor.HeaderText = "Kor";
             this.Kor.Name = "Kor";
             this.Kor.ReadOnly = true;
@@ -142,21 +142,21 @@
             // 
             // chartbase
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartbase.ChartAreas.Add(chartArea1);
+            chartArea4.Name = "ChartArea1";
+            this.chartbase.ChartAreas.Add(chartArea4);
             this.chartbase.DataSource = this.chartBindingSource;
-            legend1.Name = "Legend1";
-            this.chartbase.Legends.Add(legend1);
+            legend4.Name = "Legend1";
+            this.chartbase.Legends.Add(legend4);
             this.chartbase.Location = new System.Drawing.Point(537, 49);
             this.chartbase.Name = "chartbase";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.IsValueShownAsLabel = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueMember = "ChoosenData";
-            series1.YValueMembers = "Amount";
-            this.chartbase.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.IsValueShownAsLabel = true;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            series4.XValueMember = "ChoosenData";
+            series4.YValueMembers = "Amount";
+            this.chartbase.Series.Add(series4);
             this.chartbase.Size = new System.Drawing.Size(507, 491);
             this.chartbase.TabIndex = 1;
             this.chartbase.Text = "chart1";
@@ -310,6 +310,8 @@
             this.Controls.Add(this.dataL);
             this.Controls.Add(this.chartbase);
             this.Controls.Add(this.dataGridView);
+            this.MaximumSize = new System.Drawing.Size(1072, 591);
+            this.MinimumSize = new System.Drawing.Size(1072, 591);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

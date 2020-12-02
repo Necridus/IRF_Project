@@ -9,6 +9,15 @@ using System.Windows.Forms;
 
 namespace IRF_Project
 {
+
+    /// <summary>
+    /// 
+    /// TODO List
+    /// </summary>
+    /// chart lehessen oszlop
+    /// datagridview nézzen ki valahogy
+    /// az egész nézzen ki valahogy:D
+
     public partial class Form1 : Form
     {
         #region Lists
@@ -18,7 +27,7 @@ namespace IRF_Project
 
         #endregion
 
-        #region Properties
+        #region Variables
 
         ControllerButton _fileButton;
         ControllerButton _startButton;
@@ -30,6 +39,7 @@ namespace IRF_Project
         int _maxAge;
         int _ageStart;
         int _ageEnd;
+        int _lastAgeEnd;
         Gender _choosenGender = Gender.All;
         string _newLine = Environment.NewLine;
         string _fileName = "";
@@ -57,18 +67,6 @@ namespace IRF_Project
             ageEndTB.Enabled = false;
         }
 
-        private void LoadHintButtons()
-        {
-            HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("A fájl betöltése után lehetősége van kiválasztani,{0}mely adatok megoszlására kíváncsi!", newline));
-            Controls.Add(dataHintButton);
-
-            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el a reset gombot megnyomni!", newline));
-            Controls.Add(genderHintButton);
-            
-            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a legnagyobb értékeket választja ki a program!", newline));
-            Controls.Add(ageHintButton);
-        }
-
         private void LoadCostumButtons()
         {
             ControllerButton fileButton = new ControllerButton(dataCB.Width, dataCB.Height * 2, chartbase.Left - ageL.Left, dataL.Top, "Fájl betöltése");
@@ -90,6 +88,18 @@ namespace IRF_Project
             resetButton.Click += ResetButton_Click;
         }
 
+        private void LoadHintButtons()
+        {
+            HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("A fájl betöltése után lehetősége van kiválasztani,{0}mely adatok megoszlására kíváncsi!", newline));
+            Controls.Add(dataHintButton);
+
+            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el a reset gombot megnyomni!", newline));
+            Controls.Add(genderHintButton);
+
+            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a legnagyobb értékeket választja ki a program!", newline));
+            Controls.Add(ageHintButton);
+        }
+
         private void FileButton_Click(object sender, EventArgs e)
         {
             LoadData();
@@ -105,24 +115,36 @@ namespace IRF_Project
                 ageStartTB.Text = _minAge.ToString();
             }
             _ageStart = int.Parse(ageStartTB.Text);
+
             if (ageEndTB.Text.Equals(""))
             {
                 ageEndTB.Text = _maxAge.ToString();
             }
             _ageEnd = int.Parse(ageEndTB.Text);
+
+            if (_lastAgeEnd < _ageEnd)
+            {
+                MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először a RESET gombot, hogy a lista újra teljes legyen!");
+                return;
+            }
+
             if (_ageStart > _ageEnd)
             {
                 MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
                 return;
             }
+
             toDelete = ChoosePeopleToDelete(_choosenGender);
+
             foreach (Person person in toDelete)
             {
                 people.Remove(person);
             }
+
             RefreshDataGridView();
             CreateChart();
 
+            _lastAgeEnd = _ageEnd;
             allRB.Enabled = false;
             maleRB.Enabled = false;
             femaleRB.Enabled = false;
@@ -162,22 +184,6 @@ namespace IRF_Project
             return toDelete;
         }
 
-        private void ResetButton_Click(object sender, EventArgs e)
-        {
-            people.Clear();
-            femaleRB.Checked = false;
-            maleRB.Checked = false;
-            allRB.Checked = false;
-            _startButton.Enabled = false;
-            ageStartTB.Text = "";
-            ageEndTB.Text = "";
-            dataCB.SelectedIndex = 0;
-            _reset = true;
-            LoadData();
-            RefreshDataGridView();
-            //CreateChart();
-        }
-
         private void CreateChart()
         {
             if (_choosenData.Equals("Education"))
@@ -206,6 +212,22 @@ namespace IRF_Project
                 chartBindingSource.DataSource = dataAmount.ToList();
                 chartbase.DataBind();
             }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            people.Clear();
+            femaleRB.Checked = false;
+            maleRB.Checked = false;
+            allRB.Checked = false;
+            _startButton.Enabled = false;
+            ageStartTB.Text = "";
+            ageEndTB.Text = "";
+            dataCB.SelectedIndex = 0;
+            _reset = true;
+            LoadData();
+            RefreshDataGridView();
+            //CreateChart();
         }
 
         private void RefreshDataGridView()
@@ -246,6 +268,7 @@ namespace IRF_Project
                 #region comment this region out for faster testing
             }
             #endregion
+
             people.Clear();
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
@@ -253,6 +276,7 @@ namespace IRF_Project
             {
                 series.Points.Clear();
             }
+
             using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
             {
                 try
@@ -292,7 +316,9 @@ namespace IRF_Project
                 }
 
             }
+
             SaveAgeInterval();
+
             dataCB.DataSource = datas;
             label4.Text = people.Count.ToString();
             _reset = false;
@@ -316,6 +342,13 @@ namespace IRF_Project
                               orderby x.Age descending
                               select x.Age).First();
             _maxAge = highestAge;
+
+            _lastAgeEnd = _maxAge;
+        }
+
+        private void ChangeToEnalbedOrToDisabled()
+        {
+
         }
 
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
@@ -328,6 +361,33 @@ namespace IRF_Project
             {
                 _choosenData = "hasJob";
             }
+        }
+
+        private void femaleRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (femaleRB.Checked)
+            {
+                _choosenGender = Gender.Female;
+            }
+            _startButton.Enabled = true;
+        }
+
+        private void maleRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (maleRB.Checked)
+            {
+                _choosenGender = Gender.Male;
+            }
+            _startButton.Enabled = true;
+        }
+
+        private void allRB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allRB.Checked)
+            {
+                _choosenGender = Gender.All;
+            }
+            _startButton.Enabled = true;
         }
 
         private void ageStartTB_Leave(object sender, EventArgs e)
@@ -388,33 +448,6 @@ namespace IRF_Project
                     ageEndTB.Focus();
                 }
             }
-        }
-
-        private void femaleRB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (femaleRB.Checked)
-            {
-                _choosenGender = Gender.Female;
-            }
-            _startButton.Enabled = true;
-        }
-
-        private void maleRB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (maleRB.Checked)
-            {
-                _choosenGender = Gender.Male;
-            }
-            _startButton.Enabled = true;
-        }
-
-        private void allRB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (allRB.Checked)
-            {
-                _choosenGender = Gender.All;
-            }
-            _startButton.Enabled = true;
         }
     }
 }
