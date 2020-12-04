@@ -74,13 +74,13 @@ namespace IRF_Project
             _fileButton.Enabled = true;
             fileButton.Click += FileButton_Click;
 
-            ControllerButton startButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, fileButton.Left + fileButton.Width + 25, ageL.Top, "Mehet!", Color.Green);
+            ControllerButton startButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, fileButton.Left + fileButton.Width + 25, ageL.Top, "Megjelenítés", Color.Green);
             Controls.Add(startButton);
             _startButton = startButton;
             _startButton.Enabled = false;
             startButton.Click += StartButton_Click;
 
-            ControllerButton resetButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, startButton.Left, startButton.Top + 50, "Újra!", Color.Red);
+            ControllerButton resetButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, startButton.Left, startButton.Top + 50, "Újra", Color.Red);
             Controls.Add(resetButton);
             _resetButton = resetButton;
             _resetButton.Enabled = false;
@@ -92,7 +92,7 @@ namespace IRF_Project
             HintButton dataHintButton = new HintButton(dataL.Left + dataL.Size.Width, dataL.Top - 5, String.Format("A fájl betöltése után lehetősége van kiválasztani,{0}mely adatok megoszlására kíváncsi!", newline));
             Controls.Add(dataHintButton);
 
-            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el a reset gombot megnyomni!", newline));
+            HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Csak ebben az esetben lesz elérhető a 'Megjelenítés' gomb!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el az 'újra' gombot megnyomni!", newline));
             Controls.Add(genderHintButton);
 
             HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a legnagyobb értékeket választja ki a program!", newline));
