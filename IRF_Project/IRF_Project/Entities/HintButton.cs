@@ -10,7 +10,7 @@ namespace IRF_Project.Entities
 {
     public class HintButton : Button
     {
-        #region properties
+        #region Variables
         string _messageText;
         int _size = 20;
         #endregion
