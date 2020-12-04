@@ -15,9 +15,7 @@ namespace IRF_Project
     /// 
     /// TODO List
     /// </summary>
-    /// chart lehessen oszlop
-    /// datagridview nézzen ki valahogy
-    /// az egész nézzen ki valahogy:D
+    /// chart-ban ne true-false legyen, hanem normál igen/nem
 
     public partial class DataVisualizationForm : Form
     {
@@ -57,6 +55,9 @@ namespace IRF_Project
             LoadCostumButtons();
             LoadHintButtons();
 
+            dataGridView.Visible = false;
+            numberOfPeopleL.Visible = false;
+            NumberL.Visible = false;
             allRB.Enabled = false;
             maleRB.Enabled = false;
             femaleRB.Enabled = false;
@@ -73,7 +74,7 @@ namespace IRF_Project
             _fileButton.Enabled = true;
             fileButton.Click += FileButton_Click;
 
-            ControllerButton startButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, fileButton.Left + fileButton.Width, ageL.Top, "Mehet!", Color.Green);
+            ControllerButton startButton = new ControllerButton(allRB.Width * 2, allRB.Height * 2, fileButton.Left + fileButton.Width + 25, ageL.Top, "Mehet!", Color.Green);
             Controls.Add(startButton);
             _startButton = startButton;
             _startButton.Enabled = false;
@@ -105,6 +106,9 @@ namespace IRF_Project
         private void FileButton_Click(object sender, EventArgs e)
         {
             LoadData();
+            dataGridView.Visible = true;
+            numberOfPeopleL.Visible = true;
+            NumberL.Visible = true;
             RefreshDataGridView();
         }
 

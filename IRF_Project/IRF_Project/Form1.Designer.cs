@@ -30,17 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Vezetéknév = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Keresztnév = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Kor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Iskola = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Munka = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ChartBasis = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataL = new System.Windows.Forms.Label();
@@ -58,9 +51,11 @@
             this.ageStartL = new System.Windows.Forms.Label();
             this.ageEndL = new System.Windows.Forms.Label();
             this.BigL = new System.Windows.Forms.Label();
-            this.horizontalLine = new System.Windows.Forms.Label();
+            this.horizontalLine1 = new System.Windows.Forms.Label();
             this.verticalLine1 = new System.Windows.Forms.Label();
             this.verticalLine2 = new System.Windows.Forms.Label();
+            this.horizontalLine2 = new System.Windows.Forms.Label();
+            this.verticalLine3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChartBasis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBindingSource)).BeginInit();
@@ -83,79 +78,13 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Vezetéknév,
-            this.Keresztnév,
-            this.Kor,
-            this.Nem,
-            this.Iskola,
-            this.Munka});
             this.dataGridView.EnableHeadersVisualStyles = false;
             this.dataGridView.Location = new System.Drawing.Point(12, 209);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(619, 331);
+            this.dataGridView.Size = new System.Drawing.Size(626, 331);
             this.dataGridView.TabIndex = 0;
-            // 
-            // Vezetéknév
-            // 
-            this.Vezetéknév.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Vezetéknév.DataPropertyName = "LastName";
-            this.Vezetéknév.HeaderText = "Vezetéknév";
-            this.Vezetéknév.Name = "Vezetéknév";
-            this.Vezetéknév.ReadOnly = true;
-            this.Vezetéknév.Width = 99;
-            // 
-            // Keresztnév
-            // 
-            this.Keresztnév.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Keresztnév.DataPropertyName = "FirstName";
-            this.Keresztnév.HeaderText = "Keresztnév";
-            this.Keresztnév.Name = "Keresztnév";
-            this.Keresztnév.ReadOnly = true;
-            this.Keresztnév.Width = 95;
-            // 
-            // Kor
-            // 
-            this.Kor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Kor.DataPropertyName = "Age";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Kor.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Kor.HeaderText = "Kor";
-            this.Kor.Name = "Kor";
-            this.Kor.ReadOnly = true;
-            this.Kor.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Kor.Width = 51;
-            // 
-            // Nem
-            // 
-            this.Nem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Nem.DataPropertyName = "Gender";
-            this.Nem.HeaderText = "Nem";
-            this.Nem.Name = "Nem";
-            this.Nem.ReadOnly = true;
-            this.Nem.Width = 57;
-            // 
-            // Iskola
-            // 
-            this.Iskola.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Iskola.DataPropertyName = "Education";
-            this.Iskola.HeaderText = "Végzettség";
-            this.Iskola.Name = "Iskola";
-            this.Iskola.ReadOnly = true;
-            this.Iskola.Width = 95;
-            // 
-            // Munka
-            // 
-            this.Munka.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Munka.DataPropertyName = "HasJob";
-            this.Munka.HeaderText = "Van munkája?";
-            this.Munka.Name = "Munka";
-            this.Munka.ReadOnly = true;
-            this.Munka.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Munka.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Munka.Width = 112;
             // 
             // ChartBasis
             // 
@@ -164,7 +93,7 @@
             this.ChartBasis.DataSource = this.chartBindingSource;
             legend1.Name = "Legend1";
             this.ChartBasis.Legends.Add(legend1);
-            this.ChartBasis.Location = new System.Drawing.Point(637, 209);
+            this.ChartBasis.Location = new System.Drawing.Point(654, 209);
             this.ChartBasis.Name = "ChartBasis";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
@@ -176,7 +105,7 @@
             series1.XValueMember = "ChoosenData";
             series1.YValueMembers = "Amount";
             this.ChartBasis.Series.Add(series1);
-            this.ChartBasis.Size = new System.Drawing.Size(407, 331);
+            this.ChartBasis.Size = new System.Drawing.Size(390, 331);
             this.ChartBasis.TabIndex = 1;
             this.ChartBasis.Text = "chart1";
             // 
@@ -319,13 +248,13 @@
     "k, majd válassza ki, mely adatokat szeretné megjeleníteni a diagramon és a táblá" +
     "zatban!";
             // 
-            // horizontalLine
+            // horizontalLine1
             // 
-            this.horizontalLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.horizontalLine.Location = new System.Drawing.Point(12, 59);
-            this.horizontalLine.Name = "horizontalLine";
-            this.horizontalLine.Size = new System.Drawing.Size(544, 2);
-            this.horizontalLine.TabIndex = 45;
+            this.horizontalLine1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.horizontalLine1.Location = new System.Drawing.Point(12, 59);
+            this.horizontalLine1.Name = "horizontalLine1";
+            this.horizontalLine1.Size = new System.Drawing.Size(544, 2);
+            this.horizontalLine1.TabIndex = 45;
             // 
             // verticalLine1
             // 
@@ -343,15 +272,33 @@
             this.verticalLine2.Size = new System.Drawing.Size(2, 100);
             this.verticalLine2.TabIndex = 47;
             // 
+            // horizontalLine2
+            // 
+            this.horizontalLine2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.horizontalLine2.Location = new System.Drawing.Point(12, 180);
+            this.horizontalLine2.Name = "horizontalLine2";
+            this.horizontalLine2.Size = new System.Drawing.Size(1033, 2);
+            this.horizontalLine2.TabIndex = 48;
+            // 
+            // verticalLine3
+            // 
+            this.verticalLine3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.verticalLine3.Location = new System.Drawing.Point(831, 72);
+            this.verticalLine3.Name = "verticalLine3";
+            this.verticalLine3.Size = new System.Drawing.Size(2, 100);
+            this.verticalLine3.TabIndex = 49;
+            // 
             // DataVisualizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1056, 552);
+            this.Controls.Add(this.verticalLine3);
+            this.Controls.Add(this.horizontalLine2);
             this.Controls.Add(this.verticalLine2);
             this.Controls.Add(this.verticalLine1);
-            this.Controls.Add(this.horizontalLine);
+            this.Controls.Add(this.horizontalLine1);
             this.Controls.Add(this.BigL);
             this.Controls.Add(this.ageEndL);
             this.Controls.Add(this.ageStartL);
@@ -385,12 +332,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataVisualization.Charting.Chart ChartBasis;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Vezetéknév;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Keresztnév;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Iskola;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Munka;
         private System.Windows.Forms.Label dataL;
         private System.Windows.Forms.BindingSource chartBindingSource;
         private System.Windows.Forms.ComboBox dataCB;
@@ -407,9 +348,11 @@
         private System.Windows.Forms.Label ageStartL;
         private System.Windows.Forms.Label ageEndL;
         private System.Windows.Forms.Label BigL;
-        private System.Windows.Forms.Label horizontalLine;
+        private System.Windows.Forms.Label horizontalLine1;
         private System.Windows.Forms.Label verticalLine1;
         private System.Windows.Forms.Label verticalLine2;
+        private System.Windows.Forms.Label horizontalLine2;
+        private System.Windows.Forms.Label verticalLine3;
     }
 }
 
