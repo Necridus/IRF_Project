@@ -95,11 +95,11 @@ namespace IRF_Project
             HintButton genderHintButton = new HintButton(genderL.Left + genderL.Size.Width, genderL.Top - 5, String.Format("A fájl betöltése után arra is lehetősége van, hogy kiválassza,{0}melyik nem esetében kíváncsi a megfelelő adatokra!{0}{0}Csak ebben az esetben lesz elérhető a 'Megjelenítés' gomb!{0}{0}Amennyiben mégsem azt a nemet választaná, ne felejtse el az 'újra' gombot megnyomni!", newline));
             Controls.Add(genderHintButton);
 
-            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a legnagyobb értékeket választja ki a program!", newline));
+            HintButton ageHintButton = new HintButton(ageL.Left + ageL.Size.Width, ageL.Top - 5, String.Format("Válassza ki, milyen korú személyeket szeretne megjeleníteni!{0}{0}Amennyiben üresen hagyja, automatikusan a szélsőértékeket választja ki a program!", newline));
             Controls.Add(ageHintButton);
 
-            HintButton loadHintButton = new HintButton(_fileButton.Left + _fileButton.Size.Width + 5, _fileButton.Top, String.Format("Ahhoz, hogy egy fájlt megfelelően be tudjon olvasni,{0}a következő oszlopokat kell tartalmaznia (ezen sorrendben):{0}{0}Vezetéknév (szöveg){0}Keresztnév (szöveg){0}Kor (szám){0}Nem (Férfi=1/Nő=2){0}Legmagasabb iskolai végzettség (szöveg){0}van munkája (igaz/hamis)", newline));
-            Controls.Add(loadHintButton);
+            HintButton fileHintButton = new HintButton(_fileButton.Left + _fileButton.Size.Width + 5, _fileButton.Top + _fileButton.Height / 4, String.Format("Ahhoz, hogy egy fájlt megfelelően be tudjon olvasni,{0}a következő oszlopokat kell tartalmaznia (ezen sorrendben):{0}{0}Vezetéknév (szöveg){0}Keresztnév (szöveg){0}Kor (szám){0}Nem (Férfi=1/Nő=2){0}Legmagasabb iskolai végzettség (szöveg){0}van munkája (van/nincs)", newline));
+            Controls.Add(fileHintButton);
 
         }
 
@@ -130,7 +130,7 @@ namespace IRF_Project
 
             if (_lastAgeEnd < _ageEnd)
             {
-                MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először a RESET gombot, hogy a lista újra teljes legyen!");
+                MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először az 'Újra' gombot, hogy a lista újra teljes legyen!");
                 return;
             }
 
