@@ -43,7 +43,6 @@ namespace IRF_Project
         int _lastAgeEnd;
         Gender _choosenGender = Gender.Mindenki;
         string _newLine = Environment.NewLine;
-        string _fileName = "";
         bool _reset = false;
         string newline = Environment.NewLine;
 
