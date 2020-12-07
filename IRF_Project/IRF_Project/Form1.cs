@@ -22,6 +22,7 @@ namespace IRF_Project
         #region Lists
 
         List<Person> people = new List<Person>();
+        List<Person> peopleBeforeModifications = new List<Person>();
         List<string> datas = new List<string>();
         List<string> headerTexts = new List<string>();
 
@@ -105,11 +106,15 @@ namespace IRF_Project
 
         private void FileButton_Click(object sender, EventArgs e)
         {
+            _reset = false;
             LoadData();
-            dataGridView.Visible = true;
-            numberOfPeopleL.Visible = true;
-            NumberL.Visible = true;
-            RefreshDataGridView();
+            if (people.Count > 0)
+            {
+                dataGridView.Visible = true;
+                numberOfPeopleL.Visible = true;
+                NumberL.Visible = true;
+                RefreshDataGridView();
+            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -241,108 +246,125 @@ namespace IRF_Project
             dataGridView.DataSource = null;
             dataGridView.Rows.Clear();
             dataGridView.DataSource = people;
-            MakeHeader();
+            MakeHeaderAndDesignColumns();
         }
 
-        private void MakeHeader()
+        private void MakeHeaderAndDesignColumns()
         {
             int count = 0;
             foreach (var headerText in headerTexts)
             {
                 dataGridView.Columns[count].HeaderText = headerText;
+                dataGridView.Columns[count].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 count++;
+            }
+            dataGridView.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            if (_choosenData.Equals("Education"))
+            {
+                dataGridView.Columns[4].DefaultCellStyle.BackColor = Color.LightYellow;
+            }
+            else
+            {
+                dataGridView.Columns[5].DefaultCellStyle.BackColor = Color.LightYellow;
             }
         }
 
         private void LoadData()
         {
-            #region comment this region out for faster testing
 
             if (!_reset)
             {
                 OpenFileDialog ofd = new OpenFileDialog();
                 if (ofd.ShowDialog() != DialogResult.OK)
                 {
-                    _resetButton.Enabled = false;
-                    _startButton.Enabled = false;
                     return;
                 }
-                _fileName = ofd.FileName;
+                people.Clear();
+                dataGridView.DataSource = null;
+                dataGridView.Rows.Clear();
+                headerTexts.Clear();
+                foreach (var series in ChartBasis.Series)
+                {
+                    series.Points.Clear();
+                }
 
+                using (StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default))
+                {
+                    try
+                    {
+                        string[] headline = sr.ReadLine().Split(';');
+                        for (int i = 0; i <= 5; i++)
+                        {
+                            headerTexts.Add(headline[i]);
+                        }
+                        _educationComboBoxOption = headline[4];
+                        _jobComboBoxOption = headline[5];
+                        datas.Add(_educationComboBoxOption);
+                        datas.Add(_jobComboBoxOption);
+                        while (!sr.EndOfStream)
+                        {
+                            bool hasJob = false;
+                            string[] line = sr.ReadLine().Split(';');
+                            if (line[5].Equals("van"))
+                            {
+                                hasJob = true;
+                            }
+                            else
+                            {
+                                hasJob = false;
+                            }
+                            people.Add(new Person()
+                            {
+                                LastName = line[0],
+                                FirstName = line[1],
+                                Age = int.Parse(line[2]),
+                                Gender = (Gender)Enum.Parse(typeof(Gender), line[3]),
+                                Education = line[4],
+                                HasJob = hasJob
+                            });
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(String.Format("Kérem, hogy megfelelő felépítésű fájlt próbáljon beolvasni!{0}{0}Jó példa erre a people.csv fájl, ami megtalálható a program{0}megfelelő mappájában!", newline));
+                        return;
+                    }
+
+                }
+                LoadUnmodifiedPeopleList();
+                SaveAgeInterval();
+
+                dataCB.DataSource = datas;
+                NumberL.Text = people.Count.ToString();
+                _reset = false;
+                dataCB.Enabled = true;
+                ageEndTB.Enabled = true;
+                ageStartTB.Enabled = true;
+                _resetButton.Enabled = true;
             }
             else
             {
-                #endregion
-                _fileName = "people.csv";
-                #region comment this region out for faster testing
-            }
-            #endregion
-
-            people.Clear();
-            dataGridView.DataSource = null;
-            dataGridView.Rows.Clear();
-            headerTexts.Clear();
-            foreach (var series in ChartBasis.Series)
-            {
-                series.Points.Clear();
-            }
-
-            using (StreamReader sr = new StreamReader(_fileName, Encoding.Default))
-            {
-                try
+                people.Clear();
+                foreach (Person person in peopleBeforeModifications)
                 {
-                    string[] headline = sr.ReadLine().Split(';');
-                    for (int i = 0; i <= 5; i++)
-                    {
-                        headerTexts.Add(headline[i]);
-                    }
-                    _educationComboBoxOption = headline[4];
-                    _jobComboBoxOption = headline[5];
-                    datas.Add(_educationComboBoxOption);
-                    datas.Add(_jobComboBoxOption);
-                    while (!sr.EndOfStream)
-                    {
-                        bool hasJob = false;
-                        string[] line = sr.ReadLine().Split(';');
-                        if (line[5].Equals("van"))
-                        {
-                            hasJob = true;
-                        }
-                        else
-                        {
-                            hasJob = false;
-                        }
-                        people.Add(new Person()
-                        {
-                            LastName = line[0],
-                            FirstName = line[1],
-                            Age = int.Parse(line[2]),
-                            Gender = (Gender)Enum.Parse(typeof(Gender), line[3]),
-                            Education = line[4],
-                            HasJob = hasJob
-                        });
-                    }
+                    people.Add(person);
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show(String.Format("Kérem, hogy megfelelő felépítésű fájlt próbáljon beolvasni!{0}{0}Jó példa erre a people.csv fájl, ami megtalálható a program{0}megfelelő mappájában!", newline));
-                    return;
-                }
-
+                SaveAgeInterval();
             }
-
-            SaveAgeInterval();
-
-            dataCB.DataSource = datas;
-            NumberL.Text = people.Count.ToString();
-            _reset = false;
             allRB.Enabled = true;
-            dataCB.Enabled = true;
-            maleRB.Enabled = true;
             femaleRB.Enabled = true;
-            ageEndTB.Enabled = true;
-            ageStartTB.Enabled = true;
-            _resetButton.Enabled = true;
+            maleRB.Enabled = true;
+        }
+
+        private void LoadUnmodifiedPeopleList()
+        {
+            peopleBeforeModifications.Clear();
+            foreach (Person person in people)
+            {
+                peopleBeforeModifications.Add(person);
+            }
         }
 
         private void SaveAgeInterval()
