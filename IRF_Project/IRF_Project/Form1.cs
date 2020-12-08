@@ -153,7 +153,7 @@ namespace IRF_Project
 
             RefreshDataGridView();
             CreateChart();
-
+            ChartBasis.Visible = true;
             _lastAgeEnd = _ageEnd;
             allRB.Enabled = false;
             maleRB.Enabled = false;
@@ -162,6 +162,7 @@ namespace IRF_Project
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
+            ChartBasis.Visible = false;
             people.Clear();
             femaleRB.Checked = false;
             maleRB.Checked = false;
@@ -173,7 +174,6 @@ namespace IRF_Project
             _reset = true;
             LoadData();
             RefreshDataGridView();
-            //CreateChart();
         }
 
         private List<Person> ChoosePeopleToDelete(Gender choosenGender)
