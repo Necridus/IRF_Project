@@ -211,6 +211,7 @@
             this.ageStartTB.Name = "ageStartTB";
             this.ageStartTB.Size = new System.Drawing.Size(25, 20);
             this.ageStartTB.TabIndex = 40;
+            this.ageStartTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ageStartTB.Leave += new System.EventHandler(this.ageStartTB_Leave);
             // 
             // ageEndTB
@@ -219,6 +220,7 @@
             this.ageEndTB.Name = "ageEndTB";
             this.ageEndTB.Size = new System.Drawing.Size(25, 20);
             this.ageEndTB.TabIndex = 41;
+            this.ageEndTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ageEndTB.Leave += new System.EventHandler(this.ageEndTB_Leave);
             // 
             // ageStartL

@@ -10,13 +10,6 @@ using System.Windows.Forms;
 
 namespace IRF_Project
 {
-
-    /// <summary>
-    /// 
-    /// TODO List
-    /// </summary>
-    /// chart-ban ne true-false legyen, hanem normál igen/nem
-
     public partial class DataVisualizationForm : Form
     {
         #region Lists
@@ -113,160 +106,6 @@ namespace IRF_Project
                 numberOfPeopleL.Visible = true;
                 NumberL.Visible = true;
                 RefreshDataGridView();
-            }
-        }
-
-        private void StartButton_Click(object sender, EventArgs e)
-        {
-            List<Person> toDelete = new List<Person>();
-
-            if (ageStartTB.Text.Equals(""))
-            {
-                ageStartTB.Text = _minAge.ToString();
-            }
-            _ageStart = int.Parse(ageStartTB.Text);
-
-            if (ageEndTB.Text.Equals(""))
-            {
-                ageEndTB.Text = _maxAge.ToString();
-            }
-            _ageEnd = int.Parse(ageEndTB.Text);
-
-            if (_lastAgeEnd < _ageEnd)
-            {
-                MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először az 'Újra' gombot, hogy a lista újra teljes legyen!");
-                return;
-            }
-
-            if (_ageStart > _ageEnd)
-            {
-                MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
-                return;
-            }
-
-            toDelete = ChoosePeopleToDelete(_choosenGender);
-
-            foreach (Person person in toDelete)
-            {
-                people.Remove(person);
-            }
-
-            RefreshDataGridView();
-            CreateChart();
-            ChartBasis.Visible = true;
-            _lastAgeEnd = _ageEnd;
-            allRB.Enabled = false;
-            maleRB.Enabled = false;
-            femaleRB.Enabled = false;
-        }
-
-        private void ResetButton_Click(object sender, EventArgs e)
-        {
-            ChartBasis.Visible = false;
-            people.Clear();
-            femaleRB.Checked = false;
-            maleRB.Checked = false;
-            allRB.Checked = false;
-            _startButton.Enabled = false;
-            ageStartTB.Text = "";
-            ageEndTB.Text = "";
-            dataCB.SelectedIndex = 0;
-            _reset = true;
-            LoadData();
-            RefreshDataGridView();
-        }
-
-        private List<Person> ChoosePeopleToDelete(Gender choosenGender)
-        {
-            List<Person> toDelete = new List<Person>();
-            List<Person> toDeleteAgeMin = new List<Person>();
-            List<Person> toDeleteAgeMax = new List<Person>();
-            List<Person> toDeleteGender = new List<Person>();
-            toDeleteAgeMin = (from x in people
-                              where x.Age < _ageStart
-                              select x).ToList();
-            toDeleteAgeMax = (from x in people
-                              where x.Age > _ageEnd
-                              select x).ToList();
-            foreach (var person in toDeleteAgeMin)
-            {
-                toDelete.Add(person);
-            }
-            foreach (var person in toDeleteAgeMax)
-            {
-                toDelete.Add(person);
-            }
-
-            if (choosenGender != Gender.Mindenki)
-            {
-                toDeleteGender = (from x in people
-                                  where x.Gender != _choosenGender
-                                  select x).ToList();
-                foreach (var person in toDeleteGender)
-                {
-                    toDelete.Add(person);
-                }
-            }
-            return toDelete;
-        }
-
-        private void CreateChart()
-        {
-            if (_choosenData.Equals("Education"))
-            {
-                var dataAmount = from x in people
-                                 group x by x.Education
-                             into g
-                                 select new ChartData()
-                                 {
-                                     ChoosenData = g.Key,
-                                     Amount = (from x in g select x).Count()
-                                 };
-                chartBindingSource.DataSource = dataAmount.ToList();
-            }
-            else
-            {
-                var dataAmount = from x in people
-                                 group x by x.HasJob
-                             into g
-                                 select new ChartData()
-                                 {
-                                     ChoosenData = g.Key.ToString(),
-                                     Amount = (from x in g select x).Count()
-                                 };
-                chartBindingSource.DataSource = dataAmount.ToList();
-            }
-            ChartBasis.DataBind();
-        }
-
-        private void RefreshDataGridView()
-        {
-            NumberL.Text = people.Count.ToString();
-            dataGridView.DataSource = null;
-            dataGridView.Rows.Clear();
-            dataGridView.DataSource = people;
-            MakeHeaderAndDesignColumns();
-        }
-
-        private void MakeHeaderAndDesignColumns()
-        {
-            int count = 0;
-            foreach (var headerText in headerTexts)
-            {
-                dataGridView.Columns[count].HeaderText = headerText;
-                dataGridView.Columns[count].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                count++;
-            }
-            dataGridView.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            if (_choosenData.Equals("Education"))
-            {
-                dataGridView.Columns[4].DefaultCellStyle.BackColor = Color.LightYellow;
-            }
-            else
-            {
-                dataGridView.Columns[5].DefaultCellStyle.BackColor = Color.LightYellow;
             }
         }
 
@@ -381,6 +220,160 @@ namespace IRF_Project
             _lastAgeEnd = _maxAge;
         }
 
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            List<Person> toDelete = new List<Person>();
+
+            if (ageStartTB.Text.Equals(""))
+            {
+                ageStartTB.Text = _minAge.ToString();
+            }
+            _ageStart = int.Parse(ageStartTB.Text);
+
+            if (ageEndTB.Text.Equals(""))
+            {
+                ageEndTB.Text = _maxAge.ToString();
+            }
+            _ageEnd = int.Parse(ageEndTB.Text);
+
+            if (_lastAgeEnd < _ageEnd)
+            {
+                MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először az 'Újra' gombot, hogy a lista újra teljes legyen!");
+                return;
+            }
+
+            if (_ageStart > _ageEnd)
+            {
+                MessageBox.Show(string.Format("A kor esetében a kezdőértéknek kisebbnek {0} kell lennie, mint a záróértéknek!", _newLine));
+                return;
+            }
+
+            toDelete = ChoosePeopleToDelete(_choosenGender);
+
+            foreach (Person person in toDelete)
+            {
+                people.Remove(person);
+            }
+
+            RefreshDataGridView();
+            CreateChart();
+            ChartBasis.Visible = true;
+            _lastAgeEnd = _ageEnd;
+            allRB.Enabled = false;
+            maleRB.Enabled = false;
+            femaleRB.Enabled = false;
+        }
+
+        private List<Person> ChoosePeopleToDelete(Gender choosenGender)
+        {
+            List<Person> toDelete = new List<Person>();
+            List<Person> toDeleteAgeMin = new List<Person>();
+            List<Person> toDeleteAgeMax = new List<Person>();
+            List<Person> toDeleteGender = new List<Person>();
+            toDeleteAgeMin = (from x in people
+                              where x.Age < _ageStart
+                              select x).ToList();
+            toDeleteAgeMax = (from x in people
+                              where x.Age > _ageEnd
+                              select x).ToList();
+            foreach (var person in toDeleteAgeMin)
+            {
+                toDelete.Add(person);
+            }
+            foreach (var person in toDeleteAgeMax)
+            {
+                toDelete.Add(person);
+            }
+
+            if (choosenGender != Gender.Mindenki)
+            {
+                toDeleteGender = (from x in people
+                                  where x.Gender != _choosenGender
+                                  select x).ToList();
+                foreach (var person in toDeleteGender)
+                {
+                    toDelete.Add(person);
+                }
+            }
+            return toDelete;
+        }
+
+        private void CreateChart()
+        {
+            if (_choosenData.Equals("Education"))
+            {
+                var dataAmount = from x in people
+                                 group x by x.Education
+                             into g
+                                 select new ChartData()
+                                 {
+                                     ChoosenData = g.Key,
+                                     Amount = (from x in g select x).Count()
+                                 };
+                chartBindingSource.DataSource = dataAmount.ToList();
+            }
+            else
+            {
+                var dataAmount = from x in people
+                                 group x by x.HasJob
+                             into g
+                                 select new ChartData()
+                                 {
+                                     ChoosenData = g.Key.ToString(),
+                                     Amount = (from x in g select x).Count()
+                                 };
+                chartBindingSource.DataSource = dataAmount.ToList();
+            }
+            ChartBasis.DataBind();
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            ChartBasis.Visible = false;
+            people.Clear();
+            femaleRB.Checked = false;
+            maleRB.Checked = false;
+            allRB.Checked = false;
+            _startButton.Enabled = false;
+            ageStartTB.Text = "";
+            ageEndTB.Text = "";
+            dataCB.SelectedIndex = 0;
+            _reset = true;
+            LoadData();
+            RefreshDataGridView();
+        }
+
+        private void RefreshDataGridView()
+        {
+            NumberL.Text = people.Count.ToString();
+            dataGridView.DataSource = null;
+            dataGridView.Rows.Clear();
+            dataGridView.DataSource = people;
+            MakeHeaderAndDesignColumns();
+        }
+
+        private void MakeHeaderAndDesignColumns()
+        {
+            int count = 0;
+            foreach (var headerText in headerTexts)
+            {
+                dataGridView.Columns[count].HeaderText = headerText;
+                dataGridView.Columns[count].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                count++;
+            }
+            dataGridView.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            if (_choosenData.Equals("Education"))
+            {
+                dataGridView.Columns[4].DefaultCellStyle.BackColor = Color.LightYellow;
+            }
+            else
+            {
+                dataGridView.Columns[5].DefaultCellStyle.BackColor = Color.LightYellow;
+            }
+        }
+
         private void dataCB_SelectedValueChanged(object sender, EventArgs e)
         {
             if (dataCB.SelectedValue.ToString().Equals(_educationComboBoxOption))
@@ -400,7 +393,7 @@ namespace IRF_Project
                 _choosenGender = Gender.Nő;
             }
             _startButton.Enabled = true;
-        }
+        }   
 
         private void maleRB_CheckedChanged(object sender, EventArgs e)
         {
