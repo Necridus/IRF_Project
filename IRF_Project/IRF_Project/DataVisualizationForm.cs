@@ -116,6 +116,7 @@ namespace IRF_Project
             if (!_reset)
             {
                 OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "Comma Seperated Values (*.csv)|*.csv";
                 if (ofd.ShowDialog() != DialogResult.OK)
                 {
                     return;
