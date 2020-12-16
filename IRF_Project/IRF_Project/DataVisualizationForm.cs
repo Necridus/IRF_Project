@@ -34,6 +34,7 @@ namespace IRF_Project
         private int _ageStart;
         private int _ageEnd;
         private int _lastAgeEnd;
+        private int _lastAgeStart;
         private Gender _choosenGender = Gender.Mindenki;
         private string _newLine = Environment.NewLine;
         private bool _reset = false;
@@ -218,6 +219,7 @@ namespace IRF_Project
             _maxAge = highestAge;
 
             _lastAgeEnd = _maxAge;
+            _lastAgeStart = _minAge;
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -236,7 +238,7 @@ namespace IRF_Project
             }
             _ageEnd = int.Parse(ageEndTB.Text);
 
-            if (_lastAgeEnd < _ageEnd)
+            if (_lastAgeEnd < _ageEnd || _lastAgeStart > _ageStart)
             {
                 MessageBox.Show("Az alkalmazásban használt szűrő a teljes adathalmazból való törlésen alapszik, így annak érdekében, hogy ismét egy tágabb intervallum adatait jelenítse meg, nyomja meg először az 'Újra' gombot, hogy a lista újra teljes legyen!");
                 return;
@@ -259,6 +261,7 @@ namespace IRF_Project
             CreateChart();
             ChartBasis.Visible = true;
             _lastAgeEnd = _ageEnd;
+            _lastAgeStart = _ageStart;
             allRB.Enabled = false;
             maleRB.Enabled = false;
             femaleRB.Enabled = false;
