@@ -11,8 +11,8 @@ namespace IRF_Project.Entities
     public class HintButton : Button
     {
         #region Variables
-        string _messageText;
-        int _size = 20;
+        private string _messageText;
+        private int _size = 20;
         #endregion
 
         public HintButton(int left, int top, string messageText)

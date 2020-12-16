@@ -23,21 +23,21 @@ namespace IRF_Project
 
         #region Variables
 
-        ControllerButton _fileButton;
-        ControllerButton _startButton;
-        ControllerButton _resetButton;
-        string _educationComboBoxOption = "";
-        string _jobComboBoxOption = "";
-        string _choosenData = "";
-        int _minAge;
-        int _maxAge;
-        int _ageStart;
-        int _ageEnd;
-        int _lastAgeEnd;
-        Gender _choosenGender = Gender.Mindenki;
-        string _newLine = Environment.NewLine;
-        bool _reset = false;
-        string newline = Environment.NewLine;
+        private ControllerButton _fileButton;
+        private ControllerButton _startButton;
+        private ControllerButton _resetButton;
+        private string _educationComboBoxOption = "";
+        private string _jobComboBoxOption = "";
+        private string _choosenData = "";
+        private int _minAge;
+        private int _maxAge;
+        private int _ageStart;
+        private int _ageEnd;
+        private int _lastAgeEnd;
+        private Gender _choosenGender = Gender.Mindenki;
+        private string _newLine = Environment.NewLine;
+        private bool _reset = false;
+        private string newline = Environment.NewLine;
 
         #endregion
 

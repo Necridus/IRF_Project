@@ -11,8 +11,8 @@ namespace IRF_Project.Entities
     public class ControllerButton : Button
     {
         #region Variables
-        Color _originalColor;
-        Color _hovercolor;
+        private Color _originalColor;
+        private Color _hovercolor;
         #endregion
 
         public ControllerButton(int width, int height, int left, int top, string text, Color HoverColor)
