@@ -29,6 +29,6 @@ Olyan fájlokat képes még kezelni a program, amelyek ugyanígy vannak felépí
 
 Változtatás a tervekhez képest:
 
-- a megerősítő ablakoot elhagytam, mert a program mérete nem igényli a felhasználó megerősítését,
+- a megerősítő ablakot elhagytam, mert a program mérete nem igényli a felhasználó megerősítését,
   hiszen pillanatok alatt rekreálni lehet az adott vizualizációt.
 - a személy osztály mellé készítettem a Charthoz szükséges ChartData class-t, valamint a súgó- és vezérlőgombok származtatott osztályait.
