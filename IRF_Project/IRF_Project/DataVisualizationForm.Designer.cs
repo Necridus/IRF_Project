@@ -88,20 +88,33 @@
             // 
             // ChartBasis
             // 
+            this.ChartBasis.BackColor = System.Drawing.Color.Transparent;
+            this.ChartBasis.BorderlineColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.ChartBasis.ChartAreas.Add(chartArea1);
             this.ChartBasis.DataSource = this.chartBindingSource;
+            legend1.BackColor = System.Drawing.Color.WhiteSmoke;
+            legend1.BorderColor = System.Drawing.Color.DarkGray;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
+            legend1.InterlacedRows = true;
+            legend1.InterlacedRowsColor = System.Drawing.Color.Gainsboro;
+            legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
+            legend1.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
             this.ChartBasis.Legends.Add(legend1);
             this.ChartBasis.Location = new System.Drawing.Point(654, 209);
             this.ChartBasis.Name = "ChartBasis";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)), true);
             series1.IsValueShownAsLabel = true;
+            series1.LabelBackColor = System.Drawing.Color.WhiteSmoke;
+            series1.LabelBorderColor = System.Drawing.Color.Black;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
+            series1.SmartLabelStyle.CalloutLineAnchorCapStyle = System.Windows.Forms.DataVisualization.Charting.LineAnchorCapStyle.None;
+            series1.SmartLabelStyle.CalloutLineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             series1.XValueMember = "ChoosenData";
             series1.YValueMembers = "Amount";
             this.ChartBasis.Series.Add(series1);
